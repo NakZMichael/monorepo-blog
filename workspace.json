@@ -1,4 +1,11 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "blog-front": "apps/blog-front",
+    "blog-front-e2e": "apps/blog-front-e2e",
+    "markdown": "libs/markdown",
+    "shared-mdx-elements": "libs/shared/mdx-elements",
+    "shared-ui": "libs/shared/ui",
+    "storybook-e2e-ui-e2e": "apps/storybook-e2e/ui-e2e"
+  }
 }

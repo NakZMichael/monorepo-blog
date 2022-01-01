@@ -1,0 +1,55 @@
+{
+  "root": "apps/blog-front",
+  "sourceRoot": "apps/blog-front",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/blog-front",
+        "outputPath": "dist/apps/blog-front"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "blog-front:build",
+        "dev": true,
+        "customServerPath": "../../tools/next-watch-server/next-watch-server.ts"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "blog-front:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "blog-front:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/blog-front"],
+      "options": {
+        "jestConfig": "apps/blog-front/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/blog-front/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
