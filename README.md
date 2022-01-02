@@ -17,3 +17,9 @@ npx nx g @nrwl/next:component <コンポーネント名> --project=blog-front --
 ```
  npx nx storybook blog-front
  ```
+
+ ### storybookの作り方(例)
+
+ ```
+ nx generate @nrwl/react:component-story --project=shared-ui --componentPath=./lib/date-time/date-time.tsx --no-interactive 
+ ```
