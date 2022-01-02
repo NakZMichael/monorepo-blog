@@ -18,7 +18,7 @@ interface ArticleProps extends ParsedUrlQuery {
 
 const POSTS_PATH = join(process.cwd(), process.env.articleMarkdownPath);
 
-export const Article:NextPage<MarkdownRenderingResult> = ({
+const Article:NextPage<MarkdownRenderingResult> = ({
   frontMatter,
   html,
 })=> {
@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
 export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
   const paths = fs
     .readdirSync(POSTS_PATH)
+    .filter(path=>path.match(/\.mdx?/))
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
