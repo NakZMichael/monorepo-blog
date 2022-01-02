@@ -3,7 +3,6 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
-    "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "types": [
@@ -12,10 +11,11 @@
     ],
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "allowJs": true
   },
   "include": [
     "**/*.ts",
@@ -25,6 +25,17 @@
     "next-env.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
+  ],
+  "references": [
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
   ]
 }
