@@ -1,6 +1,6 @@
 import React from 'react';
 import {DateTime as LuxonDateTime} from "luxon";
-import { Typography, TypographyProps } from '@material-ui/core';
+import { Typography, TypographyProps } from '@mui/material';
 
 /* eslint-disable-next-line */
 export interface DateTimeProps extends TypographyProps {

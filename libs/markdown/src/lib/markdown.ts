@@ -3,6 +3,7 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import { MarkdownDocument } from './types';
 import { serialize } from 'next-mdx-remote/serialize';
+import { FrontMatter } from '..';
 
 export const getParsedFileContentBySlug = async (
   slug: string,
@@ -15,7 +16,7 @@ export const getParsedFileContentBySlug = async (
   const { data, content } = matter(fileContents);
 
   return {
-    frontMatter: data,
+    frontMatter: data as FrontMatter,
     content,
   };
 };

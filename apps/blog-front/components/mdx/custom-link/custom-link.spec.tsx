@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Index from './index';
+import CustomLink from './custom-link';
 
-describe('Index', () => {
+describe('CustomLink', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Index />);
+    const { baseElement } = render(<CustomLink />);
     expect(baseElement).toBeTruthy();
   });
 });

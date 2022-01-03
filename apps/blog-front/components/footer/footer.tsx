@@ -1,59 +1,63 @@
-import { makeStyles } from "@material-ui/core";
-import { DefaultTheme } from "@material-ui/styles";
-import {CustomLink} from "@monorepo-blog/shared/ui";
-import Link from "next/link";
+import { Box, SxProps, Theme } from "@mui/material";
+import { styled } from "@mui/system";
+import { CSSProperties } from "react";
 import {AiOutlineTwitter,AiFillGithub} from "react-icons/ai";
 
 /* eslint-disable-next-line */
-export interface FooterProps {}
-
-
+export interface FooterProps {
+  className?:string;
+  style:CSSProperties;
+  sx?: SxProps<Theme>;
+}
 
 export const Footer = (props: FooterProps)=> {
-  const classes = useStyles();
   return (
-    <footer className={classes.root}>
-      <div className={classes.contents} >
+    <FooterContainer
+      className={props.className}
+      style={props.style}
+      sx={props.sx}
+    >
+      <Box
+        sx={{
+          marginX:'auto',
+          display:'flex',
+          flexDirection:'column'
+        }}
+      >
         <a href={`https://twitter.com/${process.env.twitterHandle}`}>
-          <div className={classes.contentItem}>
+          <ContentItem>
               <AiOutlineTwitter size={'1.5rem'} />
-              <span className={classes.contentText} >Follow me on Twitter</span>
-          </div>
+              <ContentText>Follow me on Twitter</ContentText>
+          </ContentItem>
         </a>
         <a href={process.env.githubUrl || ''}>
-          <div className={classes.contentItem}>
+          <ContentItem>
               <AiFillGithub size={'1.5rem'} />
-              <span className={classes.contentText} >Check out my GitHub</span>
-          </div>
+              <ContentText>Check out my GitHub</ContentText>
+          </ContentItem>
         </a>
-      </div>
-    </footer>
+      </Box>
+    </FooterContainer>
   );
 }
 
-export default Footer;
-
-const useStyles = makeStyles((theme)=>({
-  root:{
-    backgroundColor: theme.palette.primary.main,
+const FooterContainer = styled('footer')(({theme})=>({
+  backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
     padding:20,
     display:'flex',
     justifyContent:'center'
-  },
-  
-  contents:{
-    marginLeft:'auto',
-    marginRight:'auto',
-    display:'flex',
-    flexDirection:'column'
-  },
-  contentItem:{
-    display:'flex',
-    flexDirection:'row',
-    marginBottom: theme.spacing(1),
-  },
-  contentText:{
-    marginLeft: theme.spacing(1),
-  }
 }))
+
+const ContentItem = styled('div')(({theme})=>({
+  display:'flex',
+  flexDirection:'row',
+  marginBottom: theme.spacing(1),
+}))
+
+const ContentText = styled('div')(({theme})=>({
+  marginLeft: theme.spacing(1),
+}))
+
+
+export default Footer;

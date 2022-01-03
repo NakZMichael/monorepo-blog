@@ -13,7 +13,7 @@ export default {
 const Template: Story<TopicButtonProps> = (args) => {
   const [clickedTopic, setClickedTopic] = useState<string | null>(null);
   return (
-    <div className="bg-gray-100 p-20">
+    <div style={{backgroundColor:'grey', padding:30}}>
       <TopicButton
         {...args}
         onClick={(topicName) => setClickedTopic(topicName)}
@@ -30,4 +30,12 @@ const Template: Story<TopicButtonProps> = (args) => {
 export const Primary = Template.bind({});
 Primary.args = {
   topicName: 'Next.js',
+};
+export const TypeScript = Template.bind({});
+TypeScript.args = {
+  topicName: 'TypeScript',
+};
+export const Hobby = Template.bind({});
+Hobby.args = {
+  topicName: '趣味',
 };

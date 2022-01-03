@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { join } from 'path';
 import { ParsedUrlQuery } from 'querystring';
 import fs from 'fs';
 
@@ -10,32 +9,51 @@ import {
 } from '@monorepo-blog/markdown';
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
+import { POSTS_PATH } from '../../../consts/articles';
+import { Container, Button, Box, styled} from '@mui/material';
 
 /* eslint-disable-next-line */
 interface ArticleProps extends ParsedUrlQuery {
   slug: string;
 }
 
-const POSTS_PATH = join(process.cwd(), process.env.articleMarkdownPath);
-
 const Article:NextPage<MarkdownRenderingResult> = ({
   frontMatter,
   html,
 })=> {
+  // console.log({html})
   return (
-    <div className="md:container md:mx-auto">
-      <article>
-        <h1 className="text-3xl font-bold hover:text-gray-700 pb-4">
+    <Container maxWidth="sm" >
+      <ArticleContainer >
+        <Title 
+        >
           {frontMatter.title}
-        </h1>
+        </Title>
         <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
         <hr />
 
-        <MDXRemote {...html} components={mdxElements} />
-      </article>
-    </div>
+        <MDXRemote 
+          {...html} 
+          components={mdxElements} 
+          />
+      </ArticleContainer>
+    </Container>
   );
 }
+
+const ArticleContainer  = styled('article')(({theme})=>({
+    display:'flex',
+    flexDirection:'column',
+    alignContent:'center',
+    marginLeft:'auto',
+    marginRight:'auto',
+}))
+
+const Title = styled('h1')(({theme})=>({
+  fontSize:'2.5rem',
+  fontWeight:900,
+  paddingBottom:'2rem',
+}))
 
 
 export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({

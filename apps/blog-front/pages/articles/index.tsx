@@ -1,12 +1,105 @@
-/* eslint-disable-next-line */
-export interface IndexProps {}
+import { Box,styled} from '@mui/material';
+import { FrontMatter, getParsedFileContentBySlug,} from '@monorepo-blog/markdown';
+import { Meta,CardCollection, } from '@monorepo-blog/shared/ui';
+import { GetStaticProps } from 'next';
+import fs from 'fs';
+import { POSTS_PATH } from '../../consts/articles';
 
-export function Index(props: IndexProps) {
+export interface IndexProps{
+  frontMatters:FrontMatter[]
+}
+
+export function Index(props:IndexProps) {
+  console.log({frontMatter:props.frontMatters})
   return (
-    <div>
-      <h1>Welcome to Index!</h1>
-    </div>
+    <Root>
+      <Meta 
+        meta={{
+          title:'Articles',
+          siteName:'Nakazatoのブログ',
+          link:`${process.env.domain}`,
+          desc: 'Articles',
+          image: './images/index-page-meta/index-image.jpg',
+          twitterHandle:`@${process.env.twitterHandle}`
+        }}
+      />
+      <Articles >
+        <Topic >
+          Articles
+        </Topic>
+        <StyledCardCollection 
+          cards={props.frontMatters.map((
+            {slug,
+            ...other}
+          )=>({
+            ...other,
+            link:`/articles/${slug}`
+          }))}
+        />
+      </Articles>
+    </Root>
   );
 }
 
+const Root = styled(Box)(({theme})=>({
+  display:'flex',
+  justifyContent:'center',
+  flexDirection:'column',
+  alignItems:'center',
+  width:'100%',
+  maxWidth:'100vw',
+  paddingLeft:30,
+  paddingRight:30,
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft:0,
+    paddingRight:0,
+  },
+}))
+
+const Topic = styled('h2')(({theme})=>({
+  fontSize:'2.25rem',
+  fontWeight:700,
+}))
+
+const Articles = styled(Box)(({theme})=>({
+  display:'flex',
+  justifyContent:'center',
+  flexDirection:'column',
+  alignItems:'center'
+}))
+
+const StyledCardCollection = styled(CardCollection)(({theme})=>({
+  maxWidth:'calc( 100vw - 60px )',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth:'100vw',
+  },
+}))
+
 export default Index;
+
+export const getStaticProps: GetStaticProps<IndexProps> = async () => {
+  const paths = fs
+    .readdirSync(POSTS_PATH)
+    .filter(path=>path.match(/\.mdx?/))
+    // Remove file extensions for page paths
+    .map((path) => path.replace(/\.mdx?$/, ''))
+    // Map the path into the static paths object required by Next.js
+    .map((slug) => ({ slug}));
+  // read markdown file into content and frontmatter
+  const frontMatters = await Promise.all(paths.map(async path=>{
+    const articleMarkdownContent = await getParsedFileContentBySlug(
+      path.slug,
+      POSTS_PATH
+    );
+    return {
+      ...articleMarkdownContent.frontMatter,
+      slug:path.slug,
+    }
+  }))
+
+  return {
+    props: {
+      frontMatters: frontMatters,
+    },
+  };
+};

@@ -1,5 +1,5 @@
 import { green, purple } from '@mui/material/colors';
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material';
 
 // storybookでStorybook Addon Material-UIが使えるように
 // themeOptionsとthemeで分けている
@@ -22,6 +22,9 @@ export const themeOptions = {
     },
     background:{
       default:'#222'
+    },
+    w:{
+      main:'#fff'
     }
   },
   typography:{
@@ -30,10 +33,23 @@ export const themeOptions = {
         '@media (min-width:600px)': {
           fontSize: '1.2rem',
         },
-    }
+    },
   }
 }
 
 const theme_ =  createTheme(themeOptions);
 export const theme = responsiveFontSizes(theme_);
+
+theme.typography.h3 = {
+  fontSize: '6rem',
+  '@media (min-width:600px)': {
+    fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2.4rem',
+  },
+};
+
+export type MyTheme = typeof theme;
+
 export default theme;

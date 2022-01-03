@@ -1,22 +1,26 @@
+import React from 'react';
+import './styles.css';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
-import './styles.css';
-import { ThemeProvider } from '@material-ui/core';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider, EmotionCache } from '@emotion/react';
 import { theme } from '../theme';
-import React from 'react';
+import createEmotionCache from '../tools/createEmotionCache';
+import { ThemeProvider } from '@mui/material';
 
-function CustomApp({ Component, pageProps }: AppProps) {
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+function CustomApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>Nakazatoのブログ</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="16x16"></link>
@@ -33,9 +37,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
             {...pageProps}
           />
         </main>
-        <Footer/>
+        <Footer style={{marginTop:20}} />
       </ThemeProvider>
-    </>
+    </CacheProvider>
   );
 }
 
