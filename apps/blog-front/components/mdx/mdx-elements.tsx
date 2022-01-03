@@ -1,7 +1,6 @@
 import { CodeHighlight } from './CodeHighlight';
-import CustomLink from './custom-link/custom-link';
 import { CustomImage } from './CustomImage';
-import { H1, H2, H3, H4 } from '@monorepo-blog/shared/ui';
+import { H1, H2, H3, H4,CustomLink } from '@monorepo-blog/shared/ui';
 import { Paragraph } from './Paragraph';
 import { Youtube } from './youtube/youtube';
 
