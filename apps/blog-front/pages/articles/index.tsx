@@ -18,7 +18,7 @@ export function Index(props:IndexProps) {
           siteName:'Nakazatoのブログ',
           link:`${process.env.domain}`,
           desc: 'Articles',
-          image: './images/index-page-meta/index-image.jpg',
+          image: '/images/index-page-meta/index-image.jpg',
           twitterHandle:`@${process.env.twitterHandle}`
         }}
       />

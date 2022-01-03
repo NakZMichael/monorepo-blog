@@ -40,7 +40,12 @@ export const Meta: React.FC<{
         </>
       )}
       {meta.image && <meta name="twitter:image" content={meta.image} />}
-      {meta.image && <meta property="og:image" content={`${meta.image}`} />}
+      {meta.image && (
+        <meta 
+          property="og:image" 
+          content={`${process.env['domain']}${meta.image}`} 
+        />
+      )}
     </NextHead>
   );
 };
