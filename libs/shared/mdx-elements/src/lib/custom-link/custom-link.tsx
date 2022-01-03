@@ -17,7 +17,6 @@ export const CustomLink = ({ as, href, ...otherProps }: CustomLinkProps)=> {
             {...otherProps}
         />
       </Link>
-      <Button>Hello</Button>
     </Box>
   );
 }
