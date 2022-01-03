@@ -1,7 +1,7 @@
+import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import fs from 'fs';
-
+import {H1,DateTime,TopicButton} from '@monorepo-blog/shared/ui'
 import {
   getParsedFileContentBySlug,
   renderMarkdown,
@@ -9,6 +9,8 @@ import {
 } from '@monorepo-blog/markdown';
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
+
+import fs from 'fs';
 import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
 
@@ -21,7 +23,6 @@ const Article:NextPage<MarkdownRenderingResult> = ({
   frontMatter,
   html,
 })=> {
-  // console.log({html})
   return (
     <Container maxWidth="sm" >
       <ArticleContainer >
@@ -29,8 +30,38 @@ const Article:NextPage<MarkdownRenderingResult> = ({
         >
           {frontMatter.title}
         </Title>
-        <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
-        <hr />
+        {frontMatter.image &&(
+          <TopImageContainer>
+            <Image 
+              alt={'the top image of this article'} 
+              src={frontMatter.image}
+              width={1024}
+              height={600}
+              layout='intrinsic'
+            />
+          </TopImageContainer>
+        )}
+        <Box>
+          {frontMatter.tags?.map(tag=>(
+            <Tag
+              key={tag}
+              topicName={tag} 
+            />
+          ))}
+        </Box>
+        <Box
+          sx={{
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'end'
+          }}
+        >
+          {frontMatter.date &&(
+            <DateTime dateTime={frontMatter.date} />
+          )}
+          <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
+        </Box>
+
 
         <MDXRemote 
           {...html} 
@@ -49,10 +80,19 @@ const ArticleContainer  = styled('article')(({theme})=>({
     marginRight:'auto',
 }))
 
-const Title = styled('h1')(({theme})=>({
-  fontSize:'2.5rem',
-  fontWeight:900,
+const Title = styled(H1)(({theme})=>({
   paddingBottom:'2rem',
+  lineHeight:1,
+}))
+
+const TopImageContainer = styled(Box)(({theme})=>({
+  maxHeight:400,
+  width:'100%',
+}))
+
+const Tag = styled(TopicButton)(({theme})=>({
+  marginRight:theme.spacing(1),
+  marginBottom:theme.spacing(1),
 }))
 
 

@@ -19,12 +19,6 @@ export type CodeHighlightProps = {
 const Root = styled(Box)(({theme})=>({
     position:'relative',
     fontSize:theme.typography.body1.fontSize,
-    md:{
-        fontSize:theme.typography.body1.fontSize,
-    },
-    xs:{
-        fontSize:'0.8rem',
-    }
     // [theme.breakpoints.down('xs')]: {
     //     fontSize:'0.8rem',
     // },
@@ -50,12 +44,9 @@ const MultiLineCodeContainer = styled(Box)(({theme})=>({
     paddingTop:theme.spacing(2),
     position:"relative",
     boxShadow:"6px 12px 10px 1px rgba(0, 0, 0, .4)",
-    md:{
-        fontSize:theme.typography.body1.fontSize,
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'0.8rem'
     },
-    xs:{
-        fontSize:'0.8rem',
-    }
 }))
 
 const multiLineCodeContainer = css({
@@ -85,8 +76,7 @@ const MultiLinCodeHeader = styled(Box)(({theme})=>({
 }))
 
 const MultiLineCodeFileName = styled('p')(({theme})=>({
-    // color:'rgb(193,193,193)',
-    color:theme.palette.primary.main,
+    color:'rgb(193,193,193)',
     position:'absolute',
     display:'block',
     width:'100%',
@@ -118,21 +108,19 @@ const CopyButton = styled(Button)(({theme})=>({
 }))
 
 export function CodeHighlight({node, inline, children, ...props}:CodeHighlightProps){
-    console.log({node, inline, children, ...props});
-    const languageAndMeta = props.className
-    const match = /language-(\w+)/.exec(languageAndMeta || '');
-    const match1 = match?match[1]:'';
-    const language = match1.split(':')[0]
-    const meta= match1.split(':')[1]
+    const languageAndFileName = props.className || ''
+    const match = /language-(\w+)/.exec(languageAndFileName);
+    const language = match?match[1]:'';
+    const fileName= languageAndFileName.split(':')[1]
     if(!inline){
         return <CustomMultilineCode
                     language={language}
-                    meta={meta}
+                    fileName={fileName}
                     children={String(children).replace(/\n$/, '')} {...props} 
                 />
     }else{
         return (
-            <CustomInlineCode className={languageAndMeta} children={children} {...props} />
+            <CustomInlineCode className={languageAndFileName} children={children} {...props} />
         )
     }
     
@@ -163,15 +151,14 @@ const CustomInlineCode = ({children,className,...props}:{
         )
     }
 
-const CustomMultilineCode = ({language,children,meta, ...props }:{
+const CustomMultilineCode = ({language,children,fileName, ...props }:{
     language?:string
     children:React.ReactNode
-    meta?:string,
+    fileName?:string,
 })=>{
-
     return(
         <Root>
-            <CustomMultiLineHeader fileName={meta} />
+            <CustomMultiLineHeader fileName={fileName} />
             <MultiLineCodeContainer>
                 <CopyButton 
                     variant="contained" 

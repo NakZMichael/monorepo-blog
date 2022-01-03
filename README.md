@@ -23,3 +23,9 @@ npx nx g @nrwl/next:component <コンポーネント名> --project=blog-front --
  ```
  nx generate @nrwl/react:component-story --project=shared-ui --componentPath=./lib/date-time/date-time.tsx --no-interactive 
  ```
+
+ ### topic-buttonにアイコンを追加する方法
+
+ [ここ](https://devicon.dev/)からSVGを取得する。
+
+ ファイル名は小文字に変換して同じであればいい。

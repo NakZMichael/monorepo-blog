@@ -19,7 +19,6 @@ export function CardCollection(props: CardCollectionProps) {
       justifyContent="center" 
     >
       {props.cards.map(card=>{
-        console.log({card})
         if(card.link){
           return (
             <Grid 

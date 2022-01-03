@@ -19,8 +19,7 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "blog-front:build",
-        "dev": true,
-        "customServerPath": "../../tools/next-watch-server/next-watch-server.ts"
+        "dev": true
       },
       "configurations": {
         "production": {

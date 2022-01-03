@@ -10,7 +10,6 @@ export interface IndexProps{
 }
 
 export function Index(props:IndexProps) {
-  console.log({frontMatter:props.frontMatters})
   return (
     <Root>
       <Meta 
