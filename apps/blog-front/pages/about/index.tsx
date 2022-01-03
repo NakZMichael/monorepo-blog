@@ -18,10 +18,10 @@ export function Index(props:IndexProps) {
     <Root>
       <Meta 
         meta={{
-          title:'トップページ',
+          title:'自己紹介',
           siteName:'Nakazatoのブログ',
           link:`${process.env.domain}`,
-          desc: 'トップページ',
+          desc: '自己紹介',
           image: './images/index-page-meta/index-image.jpg',
           twitterHandle:`@${process.env.twitterHandle}`
         }}

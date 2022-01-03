@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import {H1,DateTime,TopicButton} from '@monorepo-blog/shared/ui'
+import {H1,DateTime,TopicButton,Meta} from '@monorepo-blog/shared/ui'
 import {
   getParsedFileContentBySlug,
   renderMarkdown,
@@ -24,6 +24,17 @@ const Article:NextPage<MarkdownRenderingResult> = ({
   html,
 })=> {
   return (
+    <>
+    <Meta 
+        meta={{
+          title: frontMatter.title,
+          siteName:'Nakazatoのブログ',
+          link:`${process.env.domain}`,
+          desc: frontMatter.description as string,
+          image: frontMatter.image,
+          twitterHandle:`@${process.env.twitterHandle}`
+        }}
+      />
     <Container maxWidth="sm" >
       <ArticleContainer >
         <Title 
@@ -69,6 +80,7 @@ const Article:NextPage<MarkdownRenderingResult> = ({
           />
       </ArticleContainer>
     </Container>
+    </>
   );
 }
 
