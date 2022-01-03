@@ -19,8 +19,7 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "blog-front:build",
-        "dev": true,
-        "customServerPath": "../../tools/next-watch-server/next-watch-server.ts"
+        "dev": true
       },
       "configurations": {
         "production": {
@@ -48,6 +47,37 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/blog-front/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/react",
+        "port": 4400,
+        "config": {
+          "configFolder": "apps/blog-front/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/react",
+        "outputPath": "dist/storybook/blog-front",
+        "config": {
+          "configFolder": "apps/blog-front/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     }
   },

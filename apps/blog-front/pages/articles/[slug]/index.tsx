@@ -1,8 +1,7 @@
+import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { join } from 'path';
 import { ParsedUrlQuery } from 'querystring';
-import fs from 'fs';
-
+import {H1,DateTime,TopicButton} from '@monorepo-blog/shared/ui'
 import {
   getParsedFileContentBySlug,
   renderMarkdown,
@@ -11,31 +10,90 @@ import {
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
 
+import fs from 'fs';
+import { POSTS_PATH } from '../../../consts/articles';
+import { Container, Button, Box, styled} from '@mui/material';
+
 /* eslint-disable-next-line */
 interface ArticleProps extends ParsedUrlQuery {
   slug: string;
 }
 
-const POSTS_PATH = join(process.cwd(), process.env.articleMarkdownPath);
-
-export const Article:NextPage<MarkdownRenderingResult> = ({
+const Article:NextPage<MarkdownRenderingResult> = ({
   frontMatter,
   html,
 })=> {
   return (
-    <div className="md:container md:mx-auto">
-      <article>
-        <h1 className="text-3xl font-bold hover:text-gray-700 pb-4">
+    <Container maxWidth="sm" >
+      <ArticleContainer >
+        <Title 
+        >
           {frontMatter.title}
-        </h1>
-        <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
-        <hr />
+        </Title>
+        {frontMatter.image &&(
+          <TopImageContainer>
+            <Image 
+              alt={'the top image of this article'} 
+              src={frontMatter.image}
+              width={1024}
+              height={600}
+              layout='intrinsic'
+            />
+          </TopImageContainer>
+        )}
+        <Box>
+          {frontMatter.tags?.map(tag=>(
+            <Tag
+              key={tag}
+              topicName={tag} 
+            />
+          ))}
+        </Box>
+        <Box
+          sx={{
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'end'
+          }}
+        >
+          {frontMatter.date &&(
+            <DateTime dateTime={frontMatter.date} />
+          )}
+          <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
+        </Box>
 
-        <MDXRemote {...html} components={mdxElements} />
-      </article>
-    </div>
+
+        <MDXRemote 
+          {...html} 
+          components={mdxElements} 
+          />
+      </ArticleContainer>
+    </Container>
   );
 }
+
+const ArticleContainer  = styled('article')(({theme})=>({
+    display:'flex',
+    flexDirection:'column',
+    alignContent:'center',
+    marginLeft:'auto',
+    marginRight:'auto',
+}))
+
+const Title = styled(H1)(({theme})=>({
+  paddingBottom:'2rem',
+  lineHeight:1,
+}))
+
+const TopImageContainer = styled(Box)(({theme})=>({
+  maxHeight:400,
+  width:'100%',
+}))
+
+const Tag = styled(TopicButton)(({theme})=>({
+  marginRight:theme.spacing(1),
+  marginBottom:theme.spacing(1),
+}))
 
 
 export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
@@ -63,6 +121,7 @@ export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
 export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
   const paths = fs
     .readdirSync(POSTS_PATH)
+    .filter(path=>path.match(/\.mdx?/))
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
