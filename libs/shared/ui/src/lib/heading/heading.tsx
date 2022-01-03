@@ -36,10 +36,11 @@ export const H2 = styled('h2')(({theme})=>({
     paddingBottom: theme.spacing(1.2),
   },
 }))
-export const H3 = styled('h4')(({theme})=>({
+export const H3 = styled('h3')(({theme})=>({
   fontFamily:'system-ui, sans-serif',
   fontSize:'1.8rem',
   fontWeight:700,
+  margin:0,
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
@@ -50,6 +51,7 @@ export const H4 = styled('h4')(({theme})=>({
   fontFamily:'system-ui, sans-serif',
   fontSize:'1.6rem',
   fontWeight:700,
+  margin:0,
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
