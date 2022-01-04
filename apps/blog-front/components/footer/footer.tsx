@@ -24,7 +24,7 @@ export const Footer = (props: FooterProps)=> {
           flexDirection:'column'
         }}
       >
-        <a href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTERHANDLE}`}>
+        <a href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`}>
           <ContentItem>
               <AiOutlineTwitter size={'1.5rem'} />
               <ContentText>Follow me on Twitter</ContentText>
