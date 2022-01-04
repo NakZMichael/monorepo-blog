@@ -16,10 +16,11 @@ export function Index(props:IndexProps) {
         meta={{
           title:'Articles',
           siteName:'Nakazatoのブログ',
-          link:`${process.env.domain}`,
+          link:`${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}`,
           desc: 'Articles',
-          image: '/images/index-page-meta/index-image.jpg',
-          twitterHandle:`@${process.env.twitterHandle}`
+          image:  `${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}/images/index-page-meta/index-image.jpg`,,
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />
       <Articles >

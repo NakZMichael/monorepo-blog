@@ -43,7 +43,7 @@ export const Meta: React.FC<{
       {meta.image && (
         <meta 
           property="og:image" 
-          content={`${process.env['domain']}${meta.image}`} 
+          content={`${meta.image}`} 
         />
       )}
     </NextHead>

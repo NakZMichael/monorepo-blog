@@ -13,7 +13,7 @@ export default async function nextWatchServer(
   const handle = app.getRequestHandler();
   await app.prepare();
 
-  const articlePath = process.env.articleMarkdownPath;
+  const articlePath = process.env.ARTICLE_MARKDOWN_PATH ;
 
   // watch folders if specified
   if (articlePath) {

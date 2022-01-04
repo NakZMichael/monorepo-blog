@@ -15,13 +15,18 @@ import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
 
 /* eslint-disable-next-line */
-interface ArticleProps extends ParsedUrlQuery {
+interface StaticParams extends ParsedUrlQuery {
   slug: string;
 }
 
-const Article:NextPage<MarkdownRenderingResult> = ({
+interface ArticleProps extends MarkdownRenderingResult{
+  slug:string
+}
+
+const Article:NextPage<ArticleProps> = ({
   frontMatter,
   html,
+  slug,
 })=> {
   return (
     <>
@@ -29,12 +34,12 @@ const Article:NextPage<MarkdownRenderingResult> = ({
         meta={{
           title: frontMatter.title,
           siteName:'Nakazatoのブログ',
-          link:`${process.env.domain}`,
+          link:`${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}/${slug}`,
           desc: frontMatter.description as string,
-          image: frontMatter.image,
-          twitterHandle:`@${process.env.twitterHandle}`
+          image: `${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}${frontMatter.image!}`,
+          twitterHandle:`@${process.env.tNEXT_PUBLIC_TWITTER_HANDLE}`
         }}
-      />
+        />
     <Container maxWidth="sm" >
       <ArticleContainer >
         <Title 
@@ -49,16 +54,16 @@ const Article:NextPage<MarkdownRenderingResult> = ({
               width={1024}
               height={600}
               layout='intrinsic'
-            />
+              />
           </TopImageContainer>
         )}
         <Box>
           {frontMatter.tags?.map(tag=>(
             <Tag
-              key={tag}
-              topicName={tag} 
+            key={tag}
+            topicName={tag} 
             />
-          ))}
+            ))}
         </Box>
         <Box
           sx={{
@@ -66,10 +71,10 @@ const Article:NextPage<MarkdownRenderingResult> = ({
             flexDirection:'column',
             alignItems:'end'
           }}
-        >
+          >
           {frontMatter.date &&(
             <DateTime dateTime={frontMatter.date} />
-          )}
+            )}
           <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
         </Box>
 
@@ -90,47 +95,46 @@ const ArticleContainer  = styled('article')(({theme})=>({
     alignContent:'center',
     marginLeft:'auto',
     marginRight:'auto',
-}))
-
-const Title = styled(H1)(({theme})=>({
-  paddingBottom:'2rem',
-  lineHeight:1,
-}))
-
-const TopImageContainer = styled(Box)(({theme})=>({
-  maxHeight:400,
-  width:'100%',
-}))
-
-const Tag = styled(TopicButton)(({theme})=>({
-  marginRight:theme.spacing(1),
-  marginBottom:theme.spacing(1),
-}))
-
-
-export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
-  params,
-}: {
-  params: ArticleProps;
-}) => {
-  // read markdown file into content and frontmatter
-  const articleMarkdownContent = await getParsedFileContentBySlug(
-    params.slug,
-    POSTS_PATH
-  );
-
-  // generate HTML
-  const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
-
+  }))
+  
+  const Title = styled(H1)(({theme})=>({
+    paddingBottom:'2rem',
+    lineHeight:1,
+  }))
+  
+  const TopImageContainer = styled(Box)(({theme})=>({
+    maxHeight:400,
+    width:'100%',
+  }))
+  
+  const Tag = styled(TopicButton)(({theme})=>({
+    marginRight:theme.spacing(1),
+    marginBottom:theme.spacing(1),
+  }))
+  
+  
+  export const getStaticProps: GetStaticProps<ArticleProps,StaticParams> = async ({
+    params,
+  }) => {
+    // read markdown file into content and frontmatter
+    const articleMarkdownContent = await getParsedFileContentBySlug(
+      params.slug,
+      POSTS_PATH
+      );
+      
+      // generate HTML
+      const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
+      
   return {
     props: {
       frontMatter: articleMarkdownContent.frontMatter,
       html: renderedHTML,
+      slug:params.slug,
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   const paths = fs
     .readdirSync(POSTS_PATH)
     .filter(path=>path.match(/\.mdx?/))
