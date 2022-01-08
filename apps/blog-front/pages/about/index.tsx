@@ -1,6 +1,7 @@
 import { Box,styled } from '@mui/material';
 import { FrontMatter,} from '@monorepo-blog/markdown';
 import { Meta } from '@monorepo-blog/shared/ui';
+import { getUrl } from 'apps/blog-front/utils/domain';
 
 
 export interface IndexProps{
@@ -18,12 +19,12 @@ export function Index(props:IndexProps) {
     <Root>
       <Meta 
         meta={{
-          title:'トップページ',
+          title:'自己紹介',
           siteName:'Nakazatoのブログ',
-          link:`${process.env.domain}`,
-          desc: 'トップページ',
-          image: './images/index-page-meta/index-image.jpg',
-          twitterHandle:`@${process.env.twitterHandle}`
+          link:getUrl('about'),
+          desc: '自己紹介',
+          image: getUrl('/images/index-page-meta/index-image.jpg'),
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />
       <Title >Hi! I&apos;m Nakazato!</Title>

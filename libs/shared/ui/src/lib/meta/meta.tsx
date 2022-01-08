@@ -30,7 +30,7 @@ export const Meta: React.FC<{
       )}
       <meta property="og:site_name" content={meta.siteName} />
       {meta.link && <meta property="og:url" content={`${meta.link}`} />}
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={meta.title} />
       {meta.desc && <meta name="twitter:description" content={meta.desc} />}
       {meta.twitterHandle && (
@@ -40,7 +40,12 @@ export const Meta: React.FC<{
         </>
       )}
       {meta.image && <meta name="twitter:image" content={meta.image} />}
-      {meta.image && <meta property="og:image" content={`${meta.image}`} />}
+      {meta.image && (
+        <meta 
+          property="og:image" 
+          content={`${meta.image}`} 
+        />
+      )}
     </NextHead>
   );
 };

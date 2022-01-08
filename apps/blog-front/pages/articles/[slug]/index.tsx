@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import {H1,DateTime,TopicButton} from '@monorepo-blog/shared/ui'
+import {H1,DateTime,TopicButton,Meta} from '@monorepo-blog/shared/ui'
 import {
   getParsedFileContentBySlug,
   renderMarkdown,
@@ -13,17 +13,39 @@ import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
 import fs from 'fs';
 import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
+import {getUrl} from '../../../utils/domain'
+import path from 'path';
 
 /* eslint-disable-next-line */
-interface ArticleProps extends ParsedUrlQuery {
+interface StaticParams extends ParsedUrlQuery {
   slug: string;
 }
 
-const Article:NextPage<MarkdownRenderingResult> = ({
-  frontMatter,
-  html,
+interface ArticleProps{
+  markdown: MarkdownRenderingResult;
+  slug: string;
+}
+
+
+const Article:NextPage<ArticleProps> = ({
+  markdown: {
+    frontMatter,
+    html
+  },
+  slug,
 })=> {
   return (
+    <>
+    <Meta 
+        meta={{
+          title: frontMatter.title,
+          siteName:'Nakazatoのブログ',
+          link:getUrl('articles',slug),
+          desc: frontMatter.description,
+          image: getUrl(frontMatter.image),
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
+        }}
+        />
     <Container maxWidth="sm" >
       <ArticleContainer >
         <Title 
@@ -38,37 +60,41 @@ const Article:NextPage<MarkdownRenderingResult> = ({
               width={1024}
               height={600}
               layout='intrinsic'
-            />
+              />
           </TopImageContainer>
         )}
-        <Box>
+          <Box sx={{
+            display: 'flex',
+            flexWrap:'wrap'
+          }}>
           {frontMatter.tags?.map(tag=>(
             <Tag
-              key={tag}
-              topicName={tag} 
+            key={tag}
+            topicName={tag} 
             />
-          ))}
+            ))}
         </Box>
         <Box
           sx={{
             display:'flex',
             flexDirection:'column',
-            alignItems:'end'
+            alignItems: 'end',
           }}
-        >
+          >
           {frontMatter.date &&(
             <DateTime dateTime={frontMatter.date} />
-          )}
+            )}
           <div>by { typeof frontMatter.author === 'object' && frontMatter.author.name}</div>
         </Box>
 
 
         <MDXRemote 
           {...html} 
-          components={mdxElements} 
+            components={{ ...mdxElements }} 
           />
       </ArticleContainer>
     </Container>
+    </>
   );
 }
 
@@ -78,47 +104,48 @@ const ArticleContainer  = styled('article')(({theme})=>({
     alignContent:'center',
     marginLeft:'auto',
     marginRight:'auto',
-}))
-
-const Title = styled(H1)(({theme})=>({
-  paddingBottom:'2rem',
-  lineHeight:1,
-}))
-
-const TopImageContainer = styled(Box)(({theme})=>({
-  maxHeight:400,
-  width:'100%',
-}))
-
-const Tag = styled(TopicButton)(({theme})=>({
-  marginRight:theme.spacing(1),
-  marginBottom:theme.spacing(1),
-}))
-
-
-export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
-  params,
-}: {
-  params: ArticleProps;
-}) => {
-  // read markdown file into content and frontmatter
-  const articleMarkdownContent = await getParsedFileContentBySlug(
-    params.slug,
-    POSTS_PATH
-  );
-
-  // generate HTML
-  const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
-
+  }))
+  
+  const Title = styled(H1)(({theme})=>({
+    paddingBottom:'2rem',
+    lineHeight:1,
+  }))
+  
+  const TopImageContainer = styled(Box)(({theme})=>({
+    maxHeight:400,
+    width:'100%',
+  }))
+  
+  const Tag = styled(TopicButton)(({theme})=>({
+    marginRight:theme.spacing(1),
+    marginBottom:theme.spacing(1),
+  }))
+  
+  
+  export const getStaticProps: GetStaticProps<ArticleProps,StaticParams> = async ({
+    params,
+  }) => {
+    // read markdown file into content and frontmatter
+    const articleMarkdownContent = await getParsedFileContentBySlug(
+      params.slug,
+      POSTS_PATH
+      );
+      
+      // generate HTML
+      const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
+      
   return {
     props: {
-      frontMatter: articleMarkdownContent.frontMatter,
-      html: renderedHTML,
+      markdown: {
+        frontMatter: articleMarkdownContent.frontMatter,
+        html: renderedHTML,
+      },
+      slug:params.slug,
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   const paths = fs
     .readdirSync(POSTS_PATH)
     .filter(path=>path.match(/\.mdx?/))
@@ -126,6 +153,7 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
     .map((slug) => ({ params: { slug } }));
+  
 
   return {
     paths,

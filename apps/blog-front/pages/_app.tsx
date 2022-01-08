@@ -26,11 +26,15 @@ function CustomApp(props: MyAppProps) {
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="16x16"></link>
       </Head>
       <ThemeProvider theme={theme} >
+        <CssBaseline />
         <Header/>
         <main
           className="app"
           style={{
-            flexGrow:1,
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems:'center'
           }}
         >
           <Component 

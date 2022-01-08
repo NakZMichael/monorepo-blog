@@ -18,8 +18,8 @@ type CodeHighlightProps = {
 const MultiLineContainer = styled(Box)(({theme})=>({
     position:'relative',
     fontSize:theme.typography.body1.fontSize,
-    [theme.breakpoints.down('xs')]: {
-        fontSize:theme.typography.body2.fontSize,
+    [theme.breakpoints.down('sm')]: {
+        fontSize:'0.85rem',
     },
 }))
 
@@ -28,12 +28,9 @@ const CopyButton = styled(Button)(({theme})=>({
     top:'0',
     right:'0',
     color:theme.palette.common.white,
-    sm:{
+    [theme.breakpoints.down('sm')]: {
         display:'none',
     },
-    // [theme.breakpoints.down('sm')]: {
-    //     display:'none',
-    // },
 }))
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)(({theme})=>({
@@ -42,24 +39,19 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)(({theme})=>({
 
 export const CodeHighlight = ({node, inline, children, ...props}:CodeHighlightProps)=>{
     const className = props.className
-    
-    const match = /language-(\w+)/.exec(className || '');
+    const match = /language-([a-zA-Z_0-9^:.-]+)/.exec(className || '');
     const match1 = match?match[1]:'';
     const language = match1.split(':')[0]
-    const meta= match1.split(':')[1]
-    if(!inline){
-        return <CustomMultilineCode
-                    language={language}
-                    meta={meta}
-                    // eslint-disable-next-line react/no-children-prop
-                    children={String(children).replace(/\n$/, '')} {...props} 
-                />
-    }else{
-        return (
+    const meta = match1.split(':')[1]; 
+    return (
+        <CustomMultilineCode
+            language={language}
+            meta={meta}
             // eslint-disable-next-line react/no-children-prop
-            <CustomInlineCode className={className} children={children} {...props} />
-        )
-    }
+            children={String(children).replace(/\n$/, '')} {...props} 
+        />
+    )
+
     
     
 }

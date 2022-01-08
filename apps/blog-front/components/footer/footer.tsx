@@ -6,7 +6,7 @@ import {AiOutlineTwitter,AiFillGithub} from "react-icons/ai";
 /* eslint-disable-next-line */
 export interface FooterProps {
   className?:string;
-  style:CSSProperties;
+  style?:CSSProperties;
   sx?: SxProps<Theme>;
 }
 
@@ -24,13 +24,13 @@ export const Footer = (props: FooterProps)=> {
           flexDirection:'column'
         }}
       >
-        <a href={`https://twitter.com/${process.env.twitterHandle}`}>
+        <a href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`}>
           <ContentItem>
               <AiOutlineTwitter size={'1.5rem'} />
               <ContentText>Follow me on Twitter</ContentText>
           </ContentItem>
         </a>
-        <a href={process.env.githubUrl || ''}>
+        <a href={process.env.NEXT_PUBLIC_GITHUB_URL || ''}>
           <ContentItem>
               <AiFillGithub size={'1.5rem'} />
               <ContentText>Check out my GitHub</ContentText>

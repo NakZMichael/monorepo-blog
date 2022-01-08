@@ -19,7 +19,9 @@ export function DateTime({
         >
           { 
             children ||
-            dateTime && LuxonDateTime.fromISO(dateTime).toLocaleString(LuxonDateTime.DATETIME_MED)
+          dateTime && LuxonDateTime.fromISO(dateTime).toLocaleString(LuxonDateTime.DATE_FULL, {
+            locale:'en-us'
+            })
           }
         </Typography>
     </time>

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import fs from 'fs';
 import { POSTS_PATH } from '../consts/articles';
 import { Typography,Box,styled } from '@mui/material';
+import { getUrl } from '../utils/domain';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]
@@ -16,17 +17,17 @@ const introduction = `
 2022年はエンジニアとしてレベルアップしたい。
 `
 
-export function Index(props:IndexProps) {
+export function Index(props: IndexProps) {
   return (
     <Root>
       <Meta 
         meta={{
           title:'トップページ',
           siteName:'Nakazatoのブログ',
-          link:`${process.env.domain}`,
+          link:getUrl(),
           desc: 'トップページ',
-          image: './images/index-page-meta/index-image.jpg',
-          twitterHandle:`@${process.env.twitterHandle}`
+          image:  getUrl('/images/index-page-meta/index-image.jpg'),
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />
       <Title>Hi! I&apos;m Nakazato!</Title>

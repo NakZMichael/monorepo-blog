@@ -9,6 +9,7 @@ export interface FrontMatter extends NestRecord{
   author: {
     name: string
   };
+  description?:string,
   image?:string;
   date?: string;
   excerpt?: string;
