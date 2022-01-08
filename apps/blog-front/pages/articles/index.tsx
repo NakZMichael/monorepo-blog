@@ -21,7 +21,6 @@ export function Index(props:IndexProps) {
           desc: 'Articles',
           image:  getUrl('/images/index-page-meta/index-image.jpg'),
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`,
-          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />
       <Articles >

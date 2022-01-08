@@ -14,19 +14,24 @@ import fs from 'fs';
 import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
 import {getUrl} from '../../../utils/domain'
+import path from 'path';
 
 /* eslint-disable-next-line */
 interface StaticParams extends ParsedUrlQuery {
   slug: string;
 }
 
-interface ArticleProps extends MarkdownRenderingResult{
-  slug:string
+interface ArticleProps{
+  markdown: MarkdownRenderingResult;
+  slug: string;
 }
 
+
 const Article:NextPage<ArticleProps> = ({
-  frontMatter,
-  html,
+  markdown: {
+    frontMatter,
+    html
+  },
   slug,
 })=> {
   return (
@@ -35,10 +40,10 @@ const Article:NextPage<ArticleProps> = ({
         meta={{
           title: frontMatter.title,
           siteName:'Nakazatoのブログ',
-          link:getUrl(slug),
-          desc: frontMatter.description as string,
+          link:getUrl('articles',slug),
+          desc: frontMatter.description,
           image: getUrl(frontMatter.image),
-          twitterHandle:`@${process.env.tNEXT_PUBLIC_TWITTER_HANDLE}`
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
         />
     <Container maxWidth="sm" >
@@ -58,7 +63,10 @@ const Article:NextPage<ArticleProps> = ({
               />
           </TopImageContainer>
         )}
-        <Box>
+          <Box sx={{
+            display: 'flex',
+            flexWrap:'wrap'
+          }}>
           {frontMatter.tags?.map(tag=>(
             <Tag
             key={tag}
@@ -70,7 +78,7 @@ const Article:NextPage<ArticleProps> = ({
           sx={{
             display:'flex',
             flexDirection:'column',
-            alignItems:'end'
+            alignItems: 'end',
           }}
           >
           {frontMatter.date &&(
@@ -82,7 +90,7 @@ const Article:NextPage<ArticleProps> = ({
 
         <MDXRemote 
           {...html} 
-          components={mdxElements} 
+            components={{ ...mdxElements }} 
           />
       </ArticleContainer>
     </Container>
@@ -128,8 +136,10 @@ const ArticleContainer  = styled('article')(({theme})=>({
       
   return {
     props: {
-      frontMatter: articleMarkdownContent.frontMatter,
-      html: renderedHTML,
+      markdown: {
+        frontMatter: articleMarkdownContent.frontMatter,
+        html: renderedHTML,
+      },
       slug:params.slug,
     },
   };
@@ -143,6 +153,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
     .map((slug) => ({ params: { slug } }));
+  
 
   return {
     paths,

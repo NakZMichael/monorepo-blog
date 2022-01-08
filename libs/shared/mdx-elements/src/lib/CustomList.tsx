@@ -1,29 +1,39 @@
-import {styled,} from '@mui/material'
+import { Typography,styled } from '@mui/material'
 import React from 'react'
 
 type ListProps = {
     children: React.ReactNode[]
 }
-const Root = styled('li')(({theme})=>({
-    '&::marker': {
-    color: theme.palette.primary.main,
-    fontSize: theme.typography.h6.fontSize,
-    fontWeight:theme.typography.h6.fontWeight,
+
+const Li = styled('li')(({theme})=>({
+    ':-khtml-any-link': {
+        color:theme.palette.primary.main,
+        fontSize: '1.25rem',
+        fontWeight: 500,
+        '&.li': {
+            paddingLeft:theme.spacing(1),
+        }
     }
 }))
 
-const Text = styled('p')(({theme})=>({
-    fontSize:'0.85rem'
-}))
 
-export const CustomList = (props:ListProps) => {
+export const CustomList = ({ children }: ListProps) => {
+    if (Array.isArray(children) &&children.length >1) {
+        
+        return (
+            <Li>
+                <Typography variant="body1" component={'div'} >
+                    {children}
+                </Typography>
+            </Li>
+        )
+    }
     return (
-        <Root>
-            <Text>
-                {props.children[0]}
-            </Text>
-            {props.children.slice(1)}
-        </Root>
+        <Li>
+                <Typography variant="body1">
+                    {children}
+                </Typography>
+            </Li>
     )
 
 }

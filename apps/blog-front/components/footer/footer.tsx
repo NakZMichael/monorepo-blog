@@ -6,7 +6,7 @@ import {AiOutlineTwitter,AiFillGithub} from "react-icons/ai";
 /* eslint-disable-next-line */
 export interface FooterProps {
   className?:string;
-  style:CSSProperties;
+  style?:CSSProperties;
   sx?: SxProps<Theme>;
 }
 

@@ -31,7 +31,9 @@
     "**/*.stories.ts",
     "**/*.stories.js",
     "**/*.stories.jsx",
-    "**/*.stories.tsx"
+    "**/*.stories.tsx",
+    "./jest.config.js",
+    "./next.config.js"
   ],
   "references": [
     {
@@ -39,3 +41,4 @@
     }
   ]
 }
+

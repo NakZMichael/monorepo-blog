@@ -21,11 +21,11 @@ export const themeOptions = {
       dark:purple[900],
     },
     background:{
-      default:'#222'
+      // default:'#222'
     },
     w:{
       main:'#fff'
-    }
+    },
   },
   typography:{
     body1:{
@@ -34,7 +34,7 @@ export const themeOptions = {
           fontSize: '1.2rem',
         },
     },
-  }
+  },
 }
 
 const theme_ =  createTheme(themeOptions);
