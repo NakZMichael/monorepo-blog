@@ -4,6 +4,7 @@ import { Meta,CardCollection, } from '@monorepo-blog/shared/ui';
 import { GetStaticProps } from 'next';
 import fs from 'fs';
 import { POSTS_PATH } from '../../consts/articles';
+import { getUrl } from '../../utils/domain';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]
@@ -16,10 +17,10 @@ export function Index(props:IndexProps) {
         meta={{
           title:'Articles',
           siteName:'Nakazatoのブログ',
-          link:`${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}`,
+          link:getUrl('articles'),
           desc: 'Articles',
-          image:  `${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}/images/index-page-meta/index-image.jpg`,,
-          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
+          image:  getUrl('/images/index-page-meta/index-image.jpg'),
+          twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`,
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />

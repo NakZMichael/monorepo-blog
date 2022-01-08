@@ -5,6 +5,8 @@ import Head from 'next/head';
 import fs from 'fs';
 import { POSTS_PATH } from '../consts/articles';
 import { Typography,Box,styled } from '@mui/material';
+import { getURL } from 'next/dist/shared/lib/utils';
+import { getUrl } from '../utils/domain';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]
@@ -23,9 +25,9 @@ export function Index(props:IndexProps) {
         meta={{
           title:'トップページ',
           siteName:'Nakazatoのブログ',
-          link:`${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}`,
+          link:getURL(),
           desc: 'トップページ',
-          image:  `${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}/images/index-page-meta/index-image.jpg`,
+          image:  getUrl('/images/index-page-meta/index-image.jpg'),
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />

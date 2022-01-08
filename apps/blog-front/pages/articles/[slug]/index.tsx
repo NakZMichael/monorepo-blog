@@ -13,6 +13,7 @@ import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
 import fs from 'fs';
 import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
+import {getUrl} from '../../../utils/domain'
 
 /* eslint-disable-next-line */
 interface StaticParams extends ParsedUrlQuery {
@@ -34,9 +35,9 @@ const Article:NextPage<ArticleProps> = ({
         meta={{
           title: frontMatter.title,
           siteName:'Nakazatoのブログ',
-          link:`${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}/${slug}`,
+          link:getUrl(slug),
           desc: frontMatter.description as string,
-          image: `${process.env.NEXT_PUBLIC_BLOG_FRONT_DOMAIN}${frontMatter.image!}`,
+          image: getUrl(frontMatter.image),
           twitterHandle:`@${process.env.tNEXT_PUBLIC_TWITTER_HANDLE}`
         }}
         />
