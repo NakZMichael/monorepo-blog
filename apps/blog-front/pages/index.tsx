@@ -37,9 +37,14 @@ export function Index(props: IndexProps) {
         </Introduction>
       </IntroductionContainer>
       <Articles >
-        <Topic>
+        {/* <Topic>
           Articles
-        </Topic>
+        </Topic> */}
+        <Typography
+          variant='h2'
+        >
+          Articles
+        </Typography>
         <StyledCardCollection 
           cards={props.frontMatters.map((
             {slug,

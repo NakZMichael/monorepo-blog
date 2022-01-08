@@ -27,13 +27,37 @@ export const themeOptions = {
       main:'#fff'
     },
   },
-  typography:{
+  typography: {
+    h1: {
+      fontWeight:600,
+    },
+    h2: {
+      fontWeight:600,
+    },
+    h3: {
+      fontWeight:600,
+    },
     body1:{
       fontSize: '1.1rem',
-        '@media (min-width:600px)': {
-          fontSize: '1.2rem',
-        },
+      '@media (min-width:600px)': {
+        fontSize: '1.2rem',
+      },
     },
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      "Arial",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+      '"Hiragino Kaku Gothic ProN"',
+      '"Hiragino Sans"',
+      'Meiryo', 
+      'sans-serif',
+    ].join(',')
   },
 }
 
