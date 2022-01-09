@@ -22,7 +22,10 @@ function CustomApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const [mode, setMode] = useState<ModeContextType['mode']>('light')
   useEffect(() => {
-    const defaultMode = localStorage.getItem('mode') as ModeContextType['mode'] | undefined || 'light';
+    // TODO:storageModeが'dark'|'light'として認識されてしまう。。。
+
+    const storageMode:'dark'|'light' | undefined | null = localStorage.getItem('mode') as 'dark'|'light' | undefined | null;
+    const defaultMode = storageMode || 'light';
     setMode(defaultMode)
   },[])
   useEffect(() => {
