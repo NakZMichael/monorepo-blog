@@ -124,6 +124,7 @@ export const Header = () => {
           display: 'flex',
           justifyContent: 'flex-between',
           width: '100%',
+          overflow:'scroll',
         }}
       >
         <Box
@@ -144,8 +145,10 @@ export const Header = () => {
                   sx={{
                     color: theme => theme.palette.grey[600],
                     fontSize: theme => theme.typography.h5.fontSize,
-                    marginRight: theme => theme.spacing(2),
                     textTransform: 'none',
+                    minWidth:'100%',
+                    paddingLeft:[0,1,2],
+                    paddingRight: [0.5,1,2],
                   }}
                 >
                   {page.name}
@@ -172,9 +175,10 @@ export const Header = () => {
                   sx={{
                     color: theme => theme.palette.grey[600],
                     fontSize: theme => theme.typography.h5.fontSize,
-                    marginRight: theme => theme.spacing(2),
                     textTransform: 'none',
-                    
+                    paddingRight:[0,1,2],
+                    paddingLeft: [0.5,1,2],
+                    minWidth:'100%',
                   }}
                 >
                   {item.name}
