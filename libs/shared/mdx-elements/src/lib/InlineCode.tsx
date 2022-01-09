@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Button, styled, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
+import { indigo } from '@material-ui/core/colors';
 
 export const InlineCode = ({ children, className, ...props }: {
   children:React.ReactNode,
@@ -15,11 +16,11 @@ export const InlineCode = ({ children, className, ...props }: {
         fontSize:'1rem',
       }}
       sx={{
-        backgroundColor:grey[200],
+        backgroundColor:theme =>theme.palette.mode === 'light' ?grey[200] : grey[900],
         borderRadius:1,
         fontFamily: 'monospace',
         paddingX: '3px',
-        // fontSize:'1rem',
+        color:theme=>theme.palette.mode === 'light'? theme.palette.common.black:blue[700],
       }}
     >
         {String(children).replace(/\n$/, '')}

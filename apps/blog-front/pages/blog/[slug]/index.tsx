@@ -116,7 +116,8 @@ const TopImageContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   overflow:'hidden',
   maxHeight:400,
-  width:'100%',
+  width: '100%',
+  marginBottom:theme.spacing(2),
 }))
   
   const Tag = styled(TopicButton)(({theme})=>({
@@ -136,7 +137,6 @@ const TopImageContainer = styled(Box)(({ theme }) => ({
   
   // generate HTML
     const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
-    console.log({articleMarkdownContent})
       
   return {
     props: {
