@@ -78,13 +78,13 @@ export const Header = () => {
       }}
     >
     <Box
-        sx={{
-          width: '100%',
-          maxWidth:theme=>theme.breakpoints.values.lg,
+      sx={{
+        width: '100%',
+        maxWidth:theme=>theme.breakpoints.values.lg,
         display: 'flex',
         flexDirection:'column',
         alignItems: 'center',
-        paddingX: { xs: 2, sm: 10, },
+        paddingX: { xs: 0,md:5,lg:10 },
         borderBottomColor: grey[400],
         marginX: 'auto',
       }}
