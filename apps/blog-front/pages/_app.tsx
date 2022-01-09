@@ -22,7 +22,7 @@ function CustomApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const [mode, setMode] = useState<ModeContextType['mode']>('light')
   useEffect(() => {
-    const defaultMode = localStorage.getItem('mode') as ModeContextType['mode'] | undefined;
+    const defaultMode = localStorage.getItem('mode') as ModeContextType['mode'] | undefined || 'light';
     setMode(defaultMode)
   },[])
   useEffect(() => {
