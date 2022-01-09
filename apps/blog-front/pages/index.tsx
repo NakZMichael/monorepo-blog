@@ -37,13 +37,11 @@ export function Index(props: IndexProps) {
         </Introduction>
       </IntroductionContainer>
       <Articles >
-        {/* <Topic>
-          Articles
-        </Topic> */}
+
         <Typography
           variant='h2'
         >
-          Articles
+          Blog
         </Typography>
         <StyledCardCollection 
           cards={props.frontMatters.map((
@@ -51,7 +49,7 @@ export function Index(props: IndexProps) {
             ...other}
           )=>({
             ...other,
-            link:`/articles/${slug}`
+            link:`/blog/${slug}`
           }))}
         />
       </Articles>

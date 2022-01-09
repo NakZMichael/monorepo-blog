@@ -12,9 +12,9 @@ export const Paragraph = ({children}:ParagraphProps) => {
         if (isImg) {
             return child
         }
-        return <Typography variant="body1" component="p" sx={{paddingY:1}} >{children}</Typography>
+        return <Typography variant="body1" sx={{paddingY:1}} >{children}</Typography>
     }
     return (
-        <Typography variant="body1" component="p" sx={{paddingY:1}} >{children}</Typography>
+        <Typography variant="body1" sx={{paddingY:1}} >{children}</Typography>
     )
 }

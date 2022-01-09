@@ -1,4 +1,5 @@
-import {css} from '@emotion/react';
+import {Box, css, Typography} from '@mui/material';
+import { blue, indigo } from '@mui/material/colors';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -49,42 +50,49 @@ export function TopicButton(props: TopicButtonProps) {
   };
 
   return (
-    <div
-      css={containerStyle}
+    <Box
       className={props.className}
       data-testid="topicButton"
+      sx={{
+        backgroundColor: theme=>theme.palette.mode === 'dark'?indigo[700]:theme.palette.common.white,
+        height:'2.25rem',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        width:'fit-content',
+        borderRadius: '1.125rem / 50% 50% 50% 50%',
+        display:'flex',
+        alignContent:'center',
+        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        maxWidth:'10rem',
+        minWidth: 'min-content',
+        ':hover':{
+          boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
+        },
+        transitionProperty: 'box-shadow',
+        transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        transitionDuration: '150ms',
+        cursor:'pointer',
+      }}
       onClick={onClickHandler}
     >
       {icon && <img src={icon} alt="" css={imageStyle} /> }
       <div css={topicNameContainerStyle}>
-        <p css={topicNameStyle} data-testid="topicName">
+        <Typography
+          data-testid="topicName"
+          sx={{
+            fontWeight: 700,
+            fontSize: '1rem',
+            // display:'block',
+            lineHeight:'1rem',
+            margin:0,
+          }}
+        >
           {props.topicName}
-        </p>
+        </Typography>
       </div>
-    </div>
+    </Box>
   );
 }
-
-const containerStyle = css({
-  backgroundColor: 'white',
-  height:'2.25rem',
-  paddingLeft: '1rem',
-  paddingRight: '1rem',
-  width:'fit-content',
-  borderRadius: '1.125rem / 50% 50% 50% 50%',
-  display:'flex',
-  alignContent:'center',
-  boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  maxWidth:'10rem',
-  minWidth: 'min-content',
-  ':hover':{
-    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
-  },
-  transitionProperty: 'box-shadow',
-  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  transitionDuration: '150ms',
-  cursor:'pointer',
-})
 
 const imageStyle = css({
   width:'2rem',
@@ -97,15 +105,6 @@ const topicNameContainerStyle = css({
   display:'flex',
   alignItems:'center',
 })
-
-const topicNameStyle = css({
-  fontWeight: 700,
-  fontSize: '1rem',
-  // display:'block',
-  lineHeight:'1rem',
-  margin:0,
-})
-
 
 export default TopicButton;
 
