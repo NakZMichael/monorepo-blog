@@ -101,6 +101,7 @@ export const Header = () => {
           },
         }}
       >
+        <Logo />
         {/* <Logo mode={mode} /> */}
         <Box>
           <IconButton
