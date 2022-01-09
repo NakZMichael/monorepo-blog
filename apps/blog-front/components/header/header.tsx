@@ -13,7 +13,7 @@ import {
   ButtonBase,
   Link as MuiLink
 } from '@mui/material';
-import {CustomLink} from '@monorepo-blog/shared/ui'
+// import {CustomLink,Logo as Logo_} from '@monorepo-blog/shared/ui'
 import { grey } from '@mui/material/colors';
 import { useMode } from '../../theme/mode';
 import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
@@ -102,6 +102,7 @@ export const Header = () => {
         }}
       >
         <Logo />
+        {/* <Logo mode={mode} /> */}
         <Box>
           <IconButton
             sx={{
@@ -200,7 +201,7 @@ const Logo = () => (
     variant='h1'
     sx={{
       fontSize: theme => [
-        theme.typography.h2.fontSize,
+        theme.typography.h3.fontSize,
         theme.typography.h1.fontSize,
       ]
     }}
