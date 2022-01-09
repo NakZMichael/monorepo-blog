@@ -1,11 +1,9 @@
 import { green, purple } from '@mui/material/colors';
 import { createTheme, responsiveFontSizes } from '@mui/material';
 
-// storybookでStorybook Addon Material-UIが使えるように
-// themeOptionsとthemeで分けている
-// 参考: https://storybook.js.org/addons/storybook-addon-material-ui/
-export const themeOptions = {
+const getThemeOptions = (mode: 'dark' | 'light') => ({
   palette: {
+    mode,
     common:{
       white:'#fff',
       black:"#000"
@@ -28,7 +26,9 @@ export const themeOptions = {
     },
   },
   typography: {
+    fontSize:12,
     h1: {
+      fontSize:'4rem',
       fontWeight:600,
     },
     h2: {
@@ -59,21 +59,8 @@ export const themeOptions = {
       'sans-serif',
     ].join(',')
   },
-}
+})
 
-const theme_ =  createTheme(themeOptions);
-export const theme = responsiveFontSizes(theme_);
+export const getTheme =(mode:'dark'|'light')=>responsiveFontSizes(createTheme(getThemeOptions(mode)))
 
-theme.typography.h3 = {
-  fontSize: '6rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2.4rem',
-  },
-};
-
-export type MyTheme = typeof theme;
-
-export default theme;
+export type MyTheme = ReturnType<typeof getThemeOptions>;

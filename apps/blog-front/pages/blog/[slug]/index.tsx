@@ -40,13 +40,13 @@ const Article:NextPage<ArticleProps> = ({
         meta={{
           title: frontMatter.title,
           siteName:'Nakazatoのブログ',
-          link:getUrl('articles',slug),
+          link:getUrl('blog',slug),
           desc: frontMatter.description,
           image: getUrl(frontMatter.image),
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
         />
-    <Container maxWidth="sm" >
+    <Container maxWidth="md" >
       <ArticleContainer >
         <Title 
         >

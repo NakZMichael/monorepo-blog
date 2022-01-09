@@ -3,7 +3,7 @@ import { Header, } from './header';
 
 export default {
   component: Header,
-  title: 'Header',
+  title: 'Header2',
   argTypes: {
   },
 } as Meta;

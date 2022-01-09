@@ -10,8 +10,14 @@ import {
   Typography,
   Container,
   IconButton,
+  ButtonBase,
+  Link as MuiLink
 } from '@mui/material';
 import {CustomLink} from '@monorepo-blog/shared/ui'
+import { grey } from '@mui/material/colors';
+import { useMode } from '../../theme/mode';
+import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
+import Link from 'next/link';
 
 const pages:{
   name:string,
@@ -26,13 +32,26 @@ const pages:{
     path:'/about',
   },
   {
-    name: 'Articles',
-    path: '/articles'
+    name: 'Blog',
+    path: '/blog'
   },
 ];
 
+const twiAndGit: { name: string, path: string }[] = [
+  {
+    name: 'Twitter',
+    path: `https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
+  },
+  {
+    name: 'GitHub',
+    path: process.env.NEXT_PUBLIC_GITHUB_URL
+  }
+]
+
+
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const {mode,setMode} = useMode()
 
   const logo = "Muka Nakazato"
 
@@ -45,121 +64,143 @@ export const Header = () => {
   };
 
   return (
-
-    <AppBar 
-      position="static" 
-      color="primary"
-      elevation={0}
+    <Box
+      component="header"
+      sx={{
+        display: 'flex',
+        flexDirection:'column',
+        alignItems: 'center',
+        borderBottom: 1,
+        borderBottomColor: grey[400],
+        marginX: 2,
+        marginBottom:4,
+        paddingY:2,
+      }}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ 
-              mr: 2, 
-              display: 
-              { xs: 'none', md: 'flex' },
-              fontFamily: 'system-ui, sans-serif',
-            }}
+    <Box
+        sx={{
+          width: '100%',
+          maxWidth:theme=>theme.breakpoints.values.lg,
+        display: 'flex',
+        flexDirection:'column',
+        alignItems: 'center',
+        paddingX: { xs: 2, sm: 10, },
+        borderBottomColor: grey[400],
+        marginX: 'auto',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+          justifyContent: 'space-between',
+          paddingBottom: {
+            sx: 1,
+            md:2,
+          },
+        }}
+      >
+        <Logo />
+        <Box>
+          <IconButton
+            sx={{
+              "& svg": {
+                fontSize: 30
+              }
+              }}
+              onClick={()=> mode==='light'? setMode('dark'):setMode('light')}
           >
-            {logo}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-              MenuListProps={{
-                'aria-labelledby': 'lock-button',
-                role: 'listbox',
-              }}
-            >
-              {pages.map((page) => (
-                <CustomLink
-                  href={page.path}
-                  key={page.path}
-                >
-                  <MenuItem 
-                      onClick={handleCloseNavMenu}
-                      sx={{
-                        color:(theme)=>theme.palette.primary.main,
-                        display:'block'
-                      }}
-                      style={{
-                        // color:'white',
-                        // marginTop:2,
-                        // marginBottom:2,
-                        // display:'block',
-                      }}
-                  >
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
-                </CustomLink>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ 
-              flexGrow: 1, 
-              display: { xs: 'flex', md: 'none' },
-              color:'white',
-            }}
-          >
-            {logo}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },justifyContent:'flex-end' }}>
-            {pages.map((page) => (
-              <CustomLink
-                key={page.path}
+            {
+              mode === 'light' ?
+                <GiEvilMoon /> :
+                <GiUbisoftSun />
+            }
+          </IconButton>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-between',
+          width: '100%',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            width: '100%',
+            flexGrow:1,
+          }}
+        >
+          {pages.map(page => (
+            <Link href={page.path} key={page.path} passHref>
+              <MuiLink
                 href={page.path}
+                underline='none'
               >
                 <Button
-                  onClick={handleCloseNavMenu}
-                  style={{
-                    color:'white',
-                    marginTop:2,
-                    marginBottom:2,
-                    display:'block',
+                  sx={{
+                    color: theme => theme.palette.grey[600],
+                    fontSize: theme => theme.typography.h5.fontSize,
+                    marginRight: theme => theme.spacing(2),
+                    textTransform: 'none',
                   }}
-                  // sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page.name}
                 </Button>
-              </CustomLink>
-            ))}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              </MuiLink>
+            </Link>
+          ))}
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+            flexGrow:0,
+          }}
+        >
+          {twiAndGit.map(item => (
+            <Link href={item.path} key={item.path} passHref>
+              <MuiLink
+                href={item.path}
+                underline='none'
+              >
+                <Button
+                  sx={{
+                    color: theme => theme.palette.grey[600],
+                    fontSize: theme => theme.typography.h5.fontSize,
+                    marginRight: theme => theme.spacing(2),
+                    textTransform: 'none',
+                    
+                  }}
+                >
+                  {item.name}
+                </Button>
+              </MuiLink>
+            </Link>
+          ))}
+        </Box>
+      </Box>
+
+      </Box>
+    </Box>
   );
 };
 export default Header;
+
+const Logo = () => (
+  <Typography
+    variant='h1'
+    sx={{
+      fontSize: theme => [
+        theme.typography.h2.fontSize,
+        theme.typography.h1.fontSize,
+      ]
+    }}
+  >
+    Nakazato&apos;s blog
+  </Typography>
+)

@@ -1,4 +1,4 @@
-import { Box,styled} from '@mui/material';
+import { Box,styled, Typography} from '@mui/material';
 import { FrontMatter, getParsedFileContentBySlug,} from '@monorepo-blog/markdown';
 import { Meta,CardCollection, } from '@monorepo-blog/shared/ui';
 import { GetStaticProps } from 'next';
@@ -15,25 +15,27 @@ export function Index(props:IndexProps) {
     <Root>
       <Meta 
         meta={{
-          title:'Articles',
+          title:'Blog',
           siteName:'Nakazatoのブログ',
-          link:getUrl('articles'),
-          desc: 'Articles',
+          link:getUrl('blog'),
+          desc: 'Blog collection page',
           image:  getUrl('/images/index-page-meta/index-image.jpg'),
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`,
         }}
       />
       <Articles >
-        <Topic >
-          Articles
-        </Topic>
+      <Typography
+          variant='h2'
+        >
+          Blog
+        </Typography>
         <StyledCardCollection 
           cards={props.frontMatters.map((
             {slug,
             ...other}
           )=>({
             ...other,
-            link:`/articles/${slug}`
+            link:`/blog/${slug}`
           }))}
         />
       </Articles>

@@ -1,3 +1,4 @@
+import { grey } from "@material-ui/core/colors";
 import { Box, SxProps, Theme } from "@mui/material";
 import { styled } from "@mui/system";
 import { CSSProperties } from "react";
@@ -6,16 +7,27 @@ import {AiOutlineTwitter,AiFillGithub} from "react-icons/ai";
 /* eslint-disable-next-line */
 export interface FooterProps {
   className?:string;
-  style?:CSSProperties;
+  style:CSSProperties;
   sx?: SxProps<Theme>;
 }
 
 export const Footer = (props: FooterProps)=> {
   return (
-    <FooterContainer
+    <Box
+      component="footer"
       className={props.className}
       style={props.style}
-      sx={props.sx}
+      sx={{
+        // backgroundColor: theme.palette.primary.main,
+        color: grey[600],
+        padding:2,
+        display:'flex',
+        justifyContent: 'center',
+        borderTop: 1,
+        borderColor: grey[400],
+        marginX:2,
+        ...props.sx
+      }}
     >
       <Box
         sx={{
@@ -37,13 +49,13 @@ export const Footer = (props: FooterProps)=> {
           </ContentItem>
         </a>
       </Box>
-    </FooterContainer>
+    </Box>
   );
 }
 
 const FooterContainer = styled('footer')(({theme})=>({
   backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
+    color: grey[600],
     padding:20,
     display:'flex',
     justifyContent:'center'
