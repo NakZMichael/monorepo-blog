@@ -33,7 +33,8 @@ const Article:NextPage<ArticleProps> = ({
     html
   },
   slug,
-})=> {
+}) => {
+  console.log({frontMatter})
   return (
     <>
     <Meta 
@@ -63,16 +64,16 @@ const Article:NextPage<ArticleProps> = ({
               />
           </TopImageContainer>
         )}
-          <Box sx={{
-            display: 'flex',
-            flexWrap:'wrap'
-          }}>
+        <Box sx={{
+          display: 'flex',
+          flexWrap:'wrap'
+        }}>
           {frontMatter.tags?.map(tag=>(
             <Tag
             key={tag}
             topicName={tag} 
             />
-            ))}
+          ))}
         </Box>
         <Box
           sx={{
@@ -111,10 +112,12 @@ const ArticleContainer  = styled('article')(({theme})=>({
     lineHeight:1,
   }))
   
-  const TopImageContainer = styled(Box)(({theme})=>({
-    maxHeight:400,
-    width:'100%',
-  }))
+const TopImageContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  overflow:'hidden',
+  maxHeight:400,
+  width:'100%',
+}))
   
   const Tag = styled(TopicButton)(({theme})=>({
     marginRight:theme.spacing(1),
@@ -125,14 +128,15 @@ const ArticleContainer  = styled('article')(({theme})=>({
   export const getStaticProps: GetStaticProps<ArticleProps,StaticParams> = async ({
     params,
   }) => {
-    // read markdown file into content and frontmatter
-    const articleMarkdownContent = await getParsedFileContentBySlug(
-      params.slug,
-      POSTS_PATH
-      );
-      
-      // generate HTML
-      const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
+  // read markdown file into content and frontmatter
+  const articleMarkdownContent = await getParsedFileContentBySlug(
+    params.slug,
+    POSTS_PATH
+  );
+  
+  // generate HTML
+    const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
+    console.log({articleMarkdownContent})
       
   return {
     props: {
