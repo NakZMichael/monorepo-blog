@@ -224,6 +224,8 @@ const XsMenu = () => (
               color: theme => theme.palette.grey[600],
               fontSize: theme => theme.typography.h5.fontSize,
               textTransform: 'none',
+              minWidth: 0,
+              paddingX:'4px',
             }}
           >
             {page.name}
