@@ -14,7 +14,12 @@ export function CardCollection(props: CardCollectionProps) {
   return (
     <Grid 
       className={props.className}
-      sx={props.sx}
+      sx={{
+        maxWidth: '100%',
+        overflow: 'hidden',
+        paddingY:2,
+        ...props.sx
+      }}
       container spacing={2} 
       justifyContent="center" 
     >
