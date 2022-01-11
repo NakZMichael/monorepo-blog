@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { motion,useAnimationFrame } from "framer-motion"
 import MenuIcon from '@mui/icons-material/Menu';
 import { 
   AppBar, 
@@ -18,6 +19,7 @@ import { grey } from '@mui/material/colors';
 import { useMode } from '../../theme/mode';
 import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
 import Link from 'next/link';
+import { useRef } from 'react';
 
 const pages:{
   name:string,
@@ -53,7 +55,12 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const {mode,setMode} = useMode()
 
-  const logo = "Muka Nakazato"
+  // const ref = useRef<HTMLDivElement>(null);
+  // useAnimationFrame((t) => {
+  //   const rotate = t / 10;
+  //   const y = (0.8 + Math.sin(t / 1000)) * 10;
+  //   ref.current.style.transform = `translateY(${y}px) rotateZ(${rotate}deg) `;
+  // });
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -94,7 +101,8 @@ export const Header = () => {
           display: 'flex',
           alignItems: 'center',
           width: '100%',
-          justifyContent: 'space-between',
+            justifyContent: 'space-between',
+          position:'relative',
           paddingBottom: {
             sx: 1,
             md:2,
@@ -103,21 +111,44 @@ export const Header = () => {
       >
         <Logo />
         {/* <Logo mode={mode} /> */}
-        <Box>
-          <IconButton
+          <Box
             sx={{
-              "& svg": {
-                fontSize: 30
-              }
-              }}
-              onClick={()=> mode==='light'? setMode('dark'):setMode('light')}
+              position: 'absolute',
+              top: 0,
+              right:10,
+            }}
           >
-            {
-              mode === 'light' ?
-                <GiEvilMoon /> :
-                <GiUbisoftSun />
-            }
-          </IconButton>
+            <motion.div
+              animate={{
+                rotate: 360,
+                translateY: [-20,5]
+              }}
+              transition={{ ease: 'linear', duration: 2.5, repeat: Infinity,repeatType: "reverse", }}
+            >
+              <motion.div
+                whileHover={{
+                  scale: 1.5,
+                }}
+                whileTap={{
+                  scale: 1.3,
+                }}
+              >
+                <IconButton
+                  sx={{
+                    "& svg": {
+                      fontSize: 30
+                    }
+                    }}
+                    onClick={()=> mode==='light'? setMode('dark'):setMode('light')}
+                >
+                  {
+                    mode === 'light' ?
+                      <GiEvilMoon /> :
+                      <GiUbisoftSun />
+                  }
+                </IconButton>
+              </motion.div>
+          </motion.div>
         </Box>
       </Box>
       <NormalMenu />
