@@ -101,7 +101,8 @@ export const Header = () => {
           display: 'flex',
           alignItems: 'center',
           width: '100%',
-          justifyContent: 'space-between',
+            justifyContent: 'space-between',
+          position:'relative',
           paddingBottom: {
             sx: 1,
             md:2,
@@ -110,24 +111,27 @@ export const Header = () => {
       >
         <Logo />
         {/* <Logo mode={mode} /> */}
-          <Box>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right:10,
+            }}
+          >
             <motion.div
               animate={{
                 rotate: 360,
-                translateY: [-20,20]
+                translateY: [-20,5]
               }}
               transition={{ ease: 'linear', duration: 2.5, repeat: Infinity,repeatType: "reverse", }}
             >
               <motion.div
                 whileHover={{
                   scale: 1.5,
-                  // rotate: [0, 0, 270, 270, 0],
                 }}
                 whileTap={{
                   scale: 1.3,
-                  // rotate: [0, 0, 270, 270, 0],
                 }}
-                // transition={{ duration: 1 }}
               >
                 <IconButton
                   sx={{
