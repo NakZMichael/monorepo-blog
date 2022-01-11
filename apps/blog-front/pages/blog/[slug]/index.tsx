@@ -34,7 +34,6 @@ const Article:NextPage<ArticleProps> = ({
   },
   slug,
 }) => {
-  console.log({frontMatter})
   return (
     <>
     <Meta 

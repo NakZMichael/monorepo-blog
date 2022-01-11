@@ -26,6 +26,9 @@ export function Index(props:IndexProps) {
       <Articles >
       <Typography
           variant='h2'
+          sx={{
+            mb:2
+          }}
         >
           Blog
         </Typography>

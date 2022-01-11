@@ -20,12 +20,12 @@ interface MyAppProps extends AppProps {
 
 function CustomApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [mode, setMode] = useState<ModeContextType['mode']>('light')
+  const [mode, setMode] = useState<ModeContextType['mode']>('dark')
   useEffect(() => {
     // TODO:storageModeが'dark'|'light'として認識されてしまう。。。
 
     const storageMode:'dark'|'light' | undefined | null = localStorage.getItem('mode') as 'dark'|'light' | undefined | null;
-    const defaultMode = storageMode || 'light';
+    const defaultMode = storageMode || mode;
     setMode(defaultMode)
   },[])
   useEffect(() => {

@@ -120,75 +120,8 @@ export const Header = () => {
           </IconButton>
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-between',
-          width: '100%',
-          overflow:'scroll',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            width: '100%',
-            flexGrow:1,
-          }}
-        >
-          {pages.map(page => (
-            <Link href={page.path} key={page.path} passHref>
-              <MuiLink
-                href={page.path}
-                underline='none'
-              >
-                <Button
-                  sx={{
-                    color: theme => theme.palette.grey[600],
-                    fontSize: theme => theme.typography.h5.fontSize,
-                    textTransform: 'none',
-                    minWidth:'100%',
-                    paddingLeft:[0,1,2],
-                    paddingRight: [0.5,1,2],
-                  }}
-                >
-                  {page.name}
-                </Button>
-              </MuiLink>
-            </Link>
-          ))}
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            width: '100%',
-            flexGrow:0,
-          }}
-        >
-          {twiAndGit.map(item => (
-            <Link href={item.path} key={item.path} passHref>
-              <MuiLink
-                href={item.path}
-                underline='none'
-              >
-                <Button
-                  sx={{
-                    color: theme => theme.palette.grey[600],
-                    fontSize: theme => theme.typography.h5.fontSize,
-                    textTransform: 'none',
-                    paddingRight:[0,1,2],
-                    paddingLeft: [0.5,1,2],
-                    minWidth:'100%',
-                  }}
-                >
-                  {item.name}
-                </Button>
-              </MuiLink>
-            </Link>
-          ))}
-        </Box>
-      </Box>
+      <NormalMenu />
+      <XsMenu />
 
       </Box>
     </Box>
@@ -208,4 +141,95 @@ const Logo = () => (
   >
     Nakazato&apos;s blog
   </Typography>
+)
+
+const NormalMenu = () => (
+  <Box
+    sx={{
+      display: {xs:'none',sm:'flex'},
+      justifyContent: 'flex-between',
+      width: '100%',
+    }}
+  >
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        flexGrow: 1,
+      }}
+    >
+      {pages.map(page => (
+        <Link href={page.path} key={page.path} passHref>
+          <MuiLink
+            href={page.path}
+            underline='none'
+          >
+            <Button
+              sx={{
+                color: theme => theme.palette.grey[600],
+                fontSize: theme => theme.typography.h5.fontSize,
+                textTransform: 'none',
+              }}
+            >
+              {page.name}
+            </Button>
+          </MuiLink>
+        </Link>
+      ))}
+    </Box>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+      }}
+    >
+      {twiAndGit.map(item => (
+        <Link href={item.path} key={item.path} passHref>
+          <MuiLink
+            href={item.path}
+            underline='none'
+          >
+            <Button
+              sx={{
+                color: theme => theme.palette.grey[600],
+                fontSize: theme => theme.typography.h5.fontSize,
+                textTransform: 'none',
+                minWidth:'100%',
+              }}
+            >
+              {item.name}
+            </Button>
+          </MuiLink>
+        </Link>
+      ))}
+    </Box>
+  </Box>
+)
+const XsMenu = () => (
+  <Box
+    sx={{
+      display: {xs:'flex',sm:'none'},
+      justifyContent: 'space-around',
+      width:'100%',
+    }}
+  >
+    {pages.concat(twiAndGit).map(page => (
+      <Link href={page.path} key={page.path} passHref>
+        <MuiLink
+          href={page.path}
+          underline='none'
+        >
+          <Button
+            sx={{
+              color: theme => theme.palette.grey[600],
+              fontSize: theme => theme.typography.h5.fontSize,
+              textTransform: 'none',
+            }}
+          >
+            {page.name}
+          </Button>
+        </MuiLink>
+      </Link>
+    ))}
+  </Box>
 )
