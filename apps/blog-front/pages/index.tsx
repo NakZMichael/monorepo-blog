@@ -30,16 +30,18 @@ export function Index(props: IndexProps) {
           twitterHandle:`@${process.env.NEXT_PUBLIC_TWITTER_HANDLE}`
         }}
       />
-      <Title>Hi! I&apos;m Nakazato!</Title>
       <IntroductionContainer>
+        <Title>Hi! I&apos;m Nakazato!</Title>
         <Introduction>
           {introduction}
         </Introduction>
       </IntroductionContainer>
       <Articles >
-
         <Typography
           variant='h2'
+          sx={{
+            mb:2
+          }}
         >
           Blog
         </Typography>
@@ -67,8 +69,8 @@ const Root = styled(Box)(({theme})=>({
   paddingLeft:30,
   paddingRight:30,
   [theme.breakpoints.down('sm')]: {
-    paddingLeft:0,
-    paddingRight:0,
+    paddingLeft:15,
+    paddingRight:15,
   },
 }))
 
@@ -79,10 +81,10 @@ const Title = styled('h1')(({theme})=>({
 
 const IntroductionContainer = styled(Box)(({theme})=>({
   width:'100%',
-    maxWidth:600,
-    paddingLeft:15,
-    paddingRight:15,
-    paddingBottom:20,
+  maxWidth:600,
+  paddingLeft:15,
+  paddingRight:15,
+  paddingBottom:16,
 }))
 
 const Introduction = styled(Typography)(({theme})=>({

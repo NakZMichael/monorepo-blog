@@ -60,7 +60,8 @@ export default MuiCard;
 
 const Root =styled(MuiCard)(({theme})=>({
   display:'flex',
-  flexDirection:'column',
+  flexDirection: 'column',
+  borderRadius:'20px'
 }))
 
 const Title = styled('h3')(({theme})=>({
