@@ -6,16 +6,12 @@ import fs from 'fs';
 import { POSTS_PATH } from '../consts/articles';
 import { Typography,Box,styled } from '@mui/material';
 import { getUrl } from '../lib/utils/domain';
+import { introduction } from '../consts/introduction';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]
 }
 
-const introduction = `
-ソフトウェアエンジニアです。フロントエンド、バックエンド問わずにコードを書いていますが、比率でいえばフロントエンドのコードを書くことが多いです。小さなチームで働いているのでインフラ業務を担当することもあります。React,TypeScript,Goなどが好きです。Angular,Python,Djangoなどはぼちぼち。最近はWebGLやWebAssemblyに興味あり(全く手をつけていない)。
-以前は非平衡統計力学をやっていました。
-2022年はエンジニアとしてレベルアップしたい。
-`
 
 export function Index(props: IndexProps) {
   return (
