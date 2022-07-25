@@ -4,7 +4,7 @@ import { Meta,CardCollection, } from '@monorepo-blog/shared/ui';
 import { GetStaticProps } from 'next';
 import fs from 'fs';
 import { POSTS_PATH } from '../../consts/articles';
-import { getUrl } from '../../utils/domain';
+import { getUrl } from '../../lib/utils/domain';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]

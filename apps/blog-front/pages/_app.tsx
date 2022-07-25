@@ -6,10 +6,10 @@ import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { getTheme } from '../theme';
+import { getTheme } from '../lib/theme';
 import createEmotionCache from '../tools/createEmotionCache';
-import { ThemeProvider } from '@mui/material';
-import { ModeContext, ModeContextType } from '../theme/mode';
+import { RecoilRoot } from 'recoil';
+import ThemeProvider from '../components/providers/theme-provider/theme-provider';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -20,27 +20,14 @@ interface MyAppProps extends AppProps {
 
 function CustomApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [mode, setMode] = useState<ModeContextType['mode']>('dark')
-  useEffect(() => {
-    // TODO:storageModeが'dark'|'light'として認識されてしまう。。。
-
-    const storageMode:'dark'|'light' | undefined | null = localStorage.getItem('mode') as 'dark'|'light' | undefined | null;
-    const defaultMode = storageMode || mode;
-    setMode(defaultMode)
-  },[])
-  useEffect(() => {
-    window.localStorage.setItem('mode', mode,)
-  },[mode])
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Nakazatoのブログ</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="16x16"></link>
       </Head>
-      <ModeContext.Provider value={{
-        mode,setMode
-      }}>
-        <ThemeProvider theme={getTheme(mode)} >
+      <RecoilRoot>
+        <ThemeProvider >
           <CssBaseline />
           <Header/>
           <main
@@ -58,7 +45,7 @@ function CustomApp(props: MyAppProps) {
           </main>
           <Footer style={{marginTop:20}} />
         </ThemeProvider>
-      </ModeContext.Provider>
+        </RecoilRoot>
     </CacheProvider>
   );
 }

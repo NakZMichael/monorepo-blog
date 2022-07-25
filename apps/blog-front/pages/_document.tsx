@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
-import {getTheme} from '../theme/theme';
+import {getTheme} from '../lib/theme/theme';
 import createEmotionCache from '../tools/createEmotionCache';
 
 export default class MyDocument extends Document {
