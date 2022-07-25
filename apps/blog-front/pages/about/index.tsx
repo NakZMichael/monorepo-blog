@@ -1,7 +1,7 @@
 import { Box,styled } from '@mui/material';
 import { FrontMatter,} from '@monorepo-blog/markdown';
 import { Meta } from '@monorepo-blog/shared/ui';
-import { getUrl } from 'apps/blog-front/utils/domain';
+import { getUrl } from '../../lib/utils/domain';
 
 
 export interface IndexProps{

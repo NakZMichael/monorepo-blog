@@ -7,5 +7,4 @@ export * from './lib/custom-link/custom-link';
 export * from './lib/external-link/external-link';
 export * from './lib/heading/heading';
 export * from './lib/date-time/date-time';
-export * from './lib/logo/logo';
 export * from './lib/code-highlight/code-highlight';

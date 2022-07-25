@@ -16,10 +16,11 @@ import {
 } from '@mui/material';
 // import {CustomLink,Logo as Logo_} from '@monorepo-blog/shared/ui'
 import { grey } from '@mui/material/colors';
-import { useMode } from '../../theme/mode';
 import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
 import Link from 'next/link';
 import { useRef } from 'react';
+import { useRecoilState } from 'recoil';
+import { modeState } from '../../lib';
 
 const pages:{
   name:string,
@@ -53,14 +54,7 @@ const twiAndGit: { name: string, path: string }[] = [
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const {mode,setMode} = useMode()
-
-  // const ref = useRef<HTMLDivElement>(null);
-  // useAnimationFrame((t) => {
-  //   const rotate = t / 10;
-  //   const y = (0.8 + Math.sin(t / 1000)) * 10;
-  //   ref.current.style.transform = `translateY(${y}px) rotateZ(${rotate}deg) `;
-  // });
+  const [mode,setMode] = useRecoilState(modeState)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

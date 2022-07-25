@@ -13,7 +13,7 @@ import { mdxElements } from '@monorepo-blog/shared/mdx-elements';
 import fs from 'fs';
 import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
-import {getUrl} from '../../../utils/domain'
+import {getUrl} from '../../../lib/utils/domain'
 import path from 'path';
 
 /* eslint-disable-next-line */

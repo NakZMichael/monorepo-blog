@@ -5,7 +5,7 @@ import Head from 'next/head';
 import fs from 'fs';
 import { POSTS_PATH } from '../consts/articles';
 import { Typography,Box,styled } from '@mui/material';
-import { getUrl } from '../utils/domain';
+import { getUrl } from '../lib/utils/domain';
 
 export interface IndexProps{
   frontMatters:FrontMatter[]
