@@ -2,11 +2,8 @@ import {Box, css, Typography} from '@mui/material';
 import { indigo } from '@mui/material/colors';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Image from 'next/image'
 
-type ImageProps = {
-  src: string;
-  width: number;
-}
 
 export interface TopicButtonProps {
   topicName: string;
@@ -61,7 +58,8 @@ export function TopicButton(props: TopicButtonProps) {
         width:'fit-content',
         borderRadius: '1.125rem / 50% 50% 50% 50%',
         display:'flex',
-        alignContent:'center',
+        alignItems: 'center',
+        justifyContent:'space-between',
         boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         maxWidth:'10rem',
         minWidth: 'min-content',
@@ -75,7 +73,20 @@ export function TopicButton(props: TopicButtonProps) {
       }}
       onClick={onClickHandler}
     >
-      {icon && <img src={icon} alt="" css={imageStyle} /> }
+      {icon && (
+        <Box
+          position="relative"
+          width="20px"
+          height="20px"
+        >
+          <Image
+            src={icon}
+            alt={props.topicName}
+            css={imageStyle}
+            layout='fill' objectFit='contain'
+          />
+        </Box>
+      )}
       <div css={topicNameContainerStyle}>
         <Typography
           data-testid="topicName"

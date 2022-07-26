@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
+import Image from 'next/image'
 
 type CustomImageProps = {
     alt?: string;
@@ -14,10 +15,16 @@ export const CustomImage = (props:CustomImageProps) => {
             sx={{
                 width:"100%",
                 borderRadius:"8px",
-                marginY:theme=>theme.spacing(2),
+                marginY: theme => theme.spacing(2),
+                position:"relative",
             }}
         >
-            <img src={props.src} style={{objectFit:"scale-down",width:"100%"}} alt={props.alt} title={props.title} />
+            <Image
+                src={props.src || ''}
+                layout='fill' objectFit='contain'
+                style={{ objectFit: "scale-down", width: "100%" }}
+                alt={props.alt} title={props.title}
+            />
         </Box>
     )
 }
