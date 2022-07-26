@@ -8,7 +8,7 @@ vs2015.hljs.background = 'inherit';
 
 type CodeHighlightProps = {
     inline?:boolean
-    children:React.ReactNode
+    children?:React.ReactNode
     node:{
         data?:any
     }
@@ -33,7 +33,7 @@ const CopyButton = styled(Button)(({theme})=>({
     },
 }))
 
-const StyledSyntaxHighlighter = styled(SyntaxHighlighter)(({theme})=>({
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter as any)(({theme})=>({
     backgroundColor:"transparent !important",
 }))
 

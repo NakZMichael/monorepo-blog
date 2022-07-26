@@ -6,13 +6,13 @@ import { deepPurple, purple } from "@mui/material/colors";
 
 /* eslint-disable-next-line */
 export interface ExternalLinkProps {
-  href:string;
-  children:React.ReactNode
+  href?:string;
+  children?:React.ReactNode
 }
 
 export function ExternalLink(props: ExternalLinkProps) {
   return (
-    <NextLink href={props.href} passHref>
+    <NextLink href={props.href || ''} passHref>
       <MuiLink
         href={props.href}
         underline="always"

@@ -5,6 +5,7 @@ import { Paragraph } from './Paragraph';
 import { Youtube } from './youtube/youtube';
 import { CustomList } from './CustomList';
 import { InlineCode } from './InlineCode';
+// import { MDXRemote } from 'next-mdx-remote';
 
 export const mdxElements = {
   Youtube,
@@ -18,5 +19,5 @@ export const mdxElements = {
   li:CustomList,
   img:CustomImage,
   p:Paragraph,
-  // pre:function CustomPre(props:any){return <pre>{props.children}</pre>}
+  pre:function CustomPre(props:any){return <pre>{props.children}</pre>}
 };

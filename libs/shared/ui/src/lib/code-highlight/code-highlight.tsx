@@ -32,7 +32,7 @@ const InlineCodeText = styled('p')(({theme})=>({
     padding:"0px 3px",
 }))
 
-const StyledSyntaxHighlighter = styled(SyntaxHighlighter)(({theme})=>({
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter as any)(({theme})=>({
     backgroundColor:"transparent !important",
 }))
 

@@ -4,7 +4,6 @@ import { ParsedUrlQuery } from 'querystring';
 import {H1,DateTime,TopicButton,Meta} from '@monorepo-blog/shared/ui'
 import {
   getParsedFileContentBySlug,
-  renderMarkdown,
   MarkdownRenderingResult,
 } from '@monorepo-blog/markdown';
 import { MDXRemote } from 'next-mdx-remote';
@@ -15,7 +14,7 @@ import { POSTS_PATH } from '../../../consts/articles';
 import { Container, Button, Box, styled} from '@mui/material';
 import {getUrl} from '../../../utils/domain'
 import path from 'path';
-
+import { serialize } from 'next-mdx-remote/serialize';
 /* eslint-disable-next-line */
 interface StaticParams extends ParsedUrlQuery {
   slug: string;
@@ -135,7 +134,7 @@ const TopImageContainer = styled(Box)(({ theme }) => ({
   );
   
   // generate HTML
-    const renderedHTML = await renderMarkdown(articleMarkdownContent.content);
+    const renderedHTML = await serialize(articleMarkdownContent.content);
       
   return {
     props: {

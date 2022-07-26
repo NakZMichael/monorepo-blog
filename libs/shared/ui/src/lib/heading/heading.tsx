@@ -1,7 +1,10 @@
 import { styled,Button, Typography,TypographyProps } from "@mui/material";
+import { ReactNode } from "react";
 
 /* eslint-disable-next-line */
-export type HeadingProps = TypographyProps<'h1'>;
+export type HeadingProps = {
+  children: ReactNode
+};
 
 export function Heading(props: HeadingProps) {
   return (
