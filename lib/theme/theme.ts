@@ -3,7 +3,7 @@ import { createTheme, responsiveFontSizes } from '@mui/material';
 
 const getThemeOptions = (mode: 'dark' | 'light') => ({
   palette: {
-    mode:mode||'light',
+    mode:mode,
     common:{
       white:'#fff',
       black:"#000"
@@ -19,7 +19,6 @@ const getThemeOptions = (mode: 'dark' | 'light') => ({
       dark:purple[900],
     },
     background:{
-      // default:'#222'
     },
     w:{
       main:'#fff'

@@ -6,7 +6,6 @@ import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { getTheme } from '../lib/theme';
 import createEmotionCache from '../tools/createEmotionCache';
 import { RecoilRoot } from 'recoil';
 import ThemeProvider from '../components/providers/theme-provider/theme-provider';
@@ -21,32 +20,32 @@ interface MyAppProps extends AppProps {
 function CustomApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
+    <RecoilRoot>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Nakazatoのブログ</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="16x16"></link>
       </Head>
-      <RecoilRoot>
-        <ThemeProvider >
-          <CssBaseline />
-          <Header/>
-          <main
-            className="app"
-            style={{
-              flexGrow: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems:'center'
-            }}
-          >
-            <Component 
-              {...pageProps}
-            />
-          </main>
-          <Footer style={{marginTop:20}} />
-        </ThemeProvider>
-        </RecoilRoot>
+      <ThemeProvider >
+        <CssBaseline />
+        <Header/>
+        <main
+          className="app"
+          style={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems:'center'
+          }}
+        >
+          <Component 
+            {...pageProps}
+          />
+        </main>
+        <Footer style={{marginTop:20}} />
+      </ThemeProvider>
     </CacheProvider>
+    </RecoilRoot>
   );
 }
 

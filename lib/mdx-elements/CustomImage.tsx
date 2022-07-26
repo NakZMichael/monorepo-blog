@@ -22,7 +22,6 @@ export const CustomImage = (props:CustomImageProps) => {
             <Image
                 src={props.src || ''}
                 layout='fill' objectFit='contain'
-                style={{ objectFit: "scale-down", width: "100%" }}
                 alt={props.alt} title={props.title}
             />
         </Box>

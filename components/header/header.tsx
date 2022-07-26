@@ -11,7 +11,7 @@ import {
 import { grey } from '@mui/material/colors';
 import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
 import Link from 'next/link';
-import { useCallback} from 'react';
+import { useCallback, useEffect} from 'react';
 import { useRecoilState } from 'recoil';
 import { modeState } from '../../lib';
 
@@ -44,13 +44,16 @@ const twiAndGit: { name: string, path: string }[] = [
   }
 ]
 
+const getModeFromLocalStorage = () => (window.localStorage.getItem('mode') as 'dark' | 'light');
 
 export const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
   const toggleMode = useCallback(() => {
     return mode === 'light' ? setMode('dark') : setMode('light')
   }, [mode, setMode])
-
+  useEffect(() => {
+    setMode(getModeFromLocalStorage())
+  },[setMode])
   return (
     <Box
       component="header"
@@ -125,7 +128,7 @@ export const Header = () => {
                   {
                     mode === 'light' ?
                       <GiEvilMoon /> :
-                      <GiUbisoftSun />
+                      <GiEvilMoon />
                   }
                 </IconButton>
               </motion.div>
