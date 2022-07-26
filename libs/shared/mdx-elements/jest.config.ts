@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'shared-mdx-elements',
   preset: '../../../jest.preset.js',
   transform: {

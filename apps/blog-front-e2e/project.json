@@ -1,5 +1,5 @@
 {
-  "root": "apps/blog-front-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/blog-front-e2e/src",
   "projectType": "application",
   "targets": {

@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "blog-articles": {
+      "$schema": "../node_modules/nx/schemas/project-schema.json",
       "root": "_articles",
       "sourceRoot": "_articles",
       "projectType": "application",
@@ -13,5 +14,6 @@
     "shared-mdx-elements": "libs/shared/mdx-elements",
     "shared-ui": "libs/shared/ui",
     "storybook-e2e-ui-e2e": "apps/storybook-e2e/ui-e2e"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

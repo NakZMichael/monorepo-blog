@@ -1,5 +1,5 @@
 {
-  "root": "apps/blog-front",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/blog-front",
   "projectType": "application",
   "targets": {
@@ -12,7 +12,10 @@
         "outputPath": "dist/apps/blog-front"
       },
       "configurations": {
-        "production": {}
+        "production": {},
+        "development": {
+          "outputPath": "tmp/apps/blog-front"
+        }
       }
     },
     "serve": {
@@ -26,8 +29,13 @@
         "production": {
           "buildTarget": "blog-front:build:production",
           "dev": false
+        },
+        "development": {
+          "buildTarget": "blog-front:build:development",
+          "dev": true
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "export": {
       "executor": "@nrwl/next:export",
@@ -39,7 +47,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/blog-front"],
       "options": {
-        "jestConfig": "apps/blog-front/jest.config.js",
+        "jestConfig": "apps/blog-front/jest.config.ts",
         "passWithNoTests": true
       }
     },

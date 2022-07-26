@@ -1,5 +1,5 @@
 {
-  "root": "libs/markdown",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/markdown/src",
   "projectType": "library",
   "targets": {
@@ -14,7 +14,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/markdown"],
       "options": {
-        "jestConfig": "libs/markdown/jest.config.js",
+        "jestConfig": "libs/markdown/jest.config.ts",
         "passWithNoTests": true
       }
     }
