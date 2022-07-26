@@ -44,7 +44,7 @@ const twiAndGit: { name: string, path: string }[] = [
   }
 ]
 
-const getModeFromLocalStorage = () => (window.localStorage.getItem('mode') as 'dark' | 'light');
+const getModeFromLocalStorage = () => ((window.localStorage.getItem('mode') || 'dark') as 'dark' | 'light');
 
 export const Header = () => {
   const [mode, setMode] = useRecoilState(modeState);
