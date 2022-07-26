@@ -7,12 +7,12 @@ import { vs2015 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 vs2015.hljs.background = 'inherit';
 
 type CodeHighlightProps = {
-    inline?:boolean
-    children?:React.ReactNode
-    node?:{
-        data?:any
+    children?: React.ReactNode & {
+        props: {
+            children?: React.ReactNode 
+            className?:string
+        }
     }
-    className?:string
 }
 
 const MultiLineContainer = styled(Box)(({theme})=>({
@@ -37,8 +37,8 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)(({theme})=>({
     backgroundColor:"transparent !important",
 }))
 
-export const CodeHighlight = ({node, inline, children, ...props}:CodeHighlightProps)=>{
-    const className = props.className
+export const CodeHighlight = ({children}:CodeHighlightProps)=>{
+    const className = children?.props.className;
     const match = /language-([a-zA-Z_0-9^:.-]+)/.exec(className || '');
     const match1 = match?match[1]:'';
     const language = match1.split(':')[0]
@@ -47,9 +47,9 @@ export const CodeHighlight = ({node, inline, children, ...props}:CodeHighlightPr
         <CustomMultilineCode
             language={language}
             meta={meta}
-            // eslint-disable-next-line react/no-children-prop
-            children={String(children).replace(/\n$/, '')} {...props} 
-        />
+        >
+            {String(children?.props.children).replace(/\n$/, '')}
+        </CustomMultilineCode>
     )
 
     

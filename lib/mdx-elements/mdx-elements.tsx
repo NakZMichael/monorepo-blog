@@ -10,14 +10,17 @@ import { H1, H2, H3, H4 } from '../heading/heading';
 export const mdxElements = {
   Youtube,
   a: ExternalLink,
-  code: CodeHighlight,
-  inlineCode:InlineCode,
+  // 一行でもcodeになる
+  code: InlineCode,
   h1:H1,
   h2:H2,
   h3:H3,
   h4: H4,
   li:CustomList,
   img:CustomImage,
-  p:Paragraph,
-  pre:function CustomPre(props:any){return <pre>{props.children}</pre>}
+  p: Paragraph,
+  // 複数行のコードはpreタグのchildrenになる。
+  // 本当はpre用のコンポーネントでラップして
+  // CodeHighlight自体は自然な形で呼び出せるようにしたほうがいいかもしれない。
+  pre:CodeHighlight
 };

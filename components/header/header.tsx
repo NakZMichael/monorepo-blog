@@ -1,24 +1,17 @@
 import * as React from 'react';
-import { motion,useAnimationFrame } from "framer-motion"
-import MenuIcon from '@mui/icons-material/Menu';
+import { motion} from "framer-motion"
 import { 
-  AppBar, 
-  MenuItem,
-  Menu,
   Button,
   Box,
-  Toolbar,
   Typography,
-  Container,
   IconButton,
-  ButtonBase,
   Link as MuiLink
 } from '@mui/material';
 // import {CustomLink,Logo as Logo_} from '@monorepo-blog/shared/ui'
 import { grey } from '@mui/material/colors';
 import {GiUbisoftSun,GiEvilMoon} from 'react-icons/gi'
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useCallback} from 'react';
 import { useRecoilState } from 'recoil';
 import { modeState } from '../../lib';
 
@@ -53,16 +46,10 @@ const twiAndGit: { name: string, path: string }[] = [
 
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [mode,setMode] = useRecoilState(modeState)
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const [mode, setMode] = useRecoilState(modeState);
+  const toggleMode = useCallback(() => {
+    return mode === 'light' ? setMode('dark') : setMode('light')
+  }, [mode, setMode])
 
   return (
     <Box
@@ -133,7 +120,7 @@ export const Header = () => {
                       fontSize: 30
                     }
                     }}
-                    onClick={()=> mode==='light'? setMode('dark'):setMode('light')}
+                    onClick={toggleMode}
                 >
                   {
                     mode === 'light' ?

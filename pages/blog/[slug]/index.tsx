@@ -91,7 +91,7 @@ const Article:NextPage<ArticleProps> = ({
 
         <MDXRemote 
           {...html} 
-            components={{ ...mdxElements }} 
+            components={{ ...mdxElements as any}} 
           />
       </ArticleContainer>
     </Container>
@@ -129,7 +129,6 @@ const TopImageContainer = styled(Box)(({ theme }) => ({
   export const getStaticProps: GetStaticProps<ArticleProps,StaticParams> = async ({
     params,
   }) => {
-    console.log(params)
   // read markdown file into content and frontmatter
   const articleMarkdownContent = await getParsedFileContentBySlug(
     params!.slug,

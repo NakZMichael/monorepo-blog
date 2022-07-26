@@ -8,7 +8,8 @@ type ParagraphProps = {
 export const Paragraph = ({children}:ParagraphProps) => {
     if (!Array.isArray(children)) {
         const child = children;
-        const isImg = child.props?.mdxType === 'img';
+        // srcの有無でimgかどうか判断する
+        const isImg = !!child.props?.src;
         if (isImg) {
             return child
         }
