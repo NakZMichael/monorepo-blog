@@ -128,7 +128,7 @@ export const Header = () => {
                   {
                     mode === 'light' ?
                       <GiEvilMoon /> :
-                      <GiEvilMoon />
+                      <GiUbisoftSun />
                   }
                 </IconButton>
               </motion.div>
